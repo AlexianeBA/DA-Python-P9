@@ -52,6 +52,7 @@ def change_password(request):
         form = CustomPasswordChangeForm(user=request.user, data=request.POST)
         if form.is_valid():
             user = form.save()
+            print(form.cleaned_data)
             update_session_auth_hash(request, user)
             messages.success(request, 'Votre mot de passe a été modifié avec succès!')
             return redirect('LITRevu')
