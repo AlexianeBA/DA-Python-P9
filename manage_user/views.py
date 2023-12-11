@@ -1,12 +1,13 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from . import forms
-from django.contrib.auth import login, authenticate, logout, update_session_auth_hash
+from django.contrib.auth import login, logout, update_session_auth_hash
 import django.contrib.auth
 from django.conf import settings
 from django.contrib.auth.forms import UserCreationForm
 from .forms import CustomPasswordChangeForm
 from django.contrib import messages
+from manage_review.forms import ArticleForm
 
 # Create your views here.
 
@@ -61,3 +62,14 @@ def change_password(request):
     else:
         form = CustomPasswordChangeForm(user=request.user)
     return render(request, 'change_password.html', {'form': form})
+
+def creation_review(request):
+    if request.method == 'POST':
+        form = ArticleForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('liste_articles')  # Redirect to the list of articles after creation
+    else:
+        form = ArticleForm()
+
+    return render(request, 'creation_review.html', {'form': form})
