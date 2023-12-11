@@ -1,11 +1,12 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from . import forms
-from django.contrib.auth import login, authenticate
+from django.contrib.auth import login, authenticate, logout, update_session_auth_hash
 import django.contrib.auth
 from django.conf import settings
 from django.contrib.auth.forms import UserCreationForm
-
+from .forms import CustomPasswordChangeForm
+from django.contrib import messages
 
 # Create your views here.
 
@@ -42,3 +43,20 @@ def signup_page(request):
             login(request, user)
             return redirect("LITRevu")
     return render(request, "signup.html", context={"form": form})
+def signout(request):
+    logout(request)
+    return redirect('LITRevu')
+    
+def change_password(request):
+    if request.method == 'POST':
+        form = CustomPasswordChangeForm(user=request.user, data=request.POST)
+        if form.is_valid():
+            user = form.save()
+            update_session_auth_hash(request, user)
+            messages.success(request, 'Votre mot de passe a été modifié avec succès!')
+            return redirect('LITRevu')
+        else:
+            messages.error(request, 'Veuillez corriger les erreurs ci-dessous.')
+    else:
+        form = CustomPasswordChangeForm(user=request.user)
+    return render(request, 'change_password.html', {'form': form})

@@ -1,6 +1,6 @@
 from django import forms
 
-from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.forms import UserCreationForm, PasswordChangeForm
 
 from django.contrib.auth.models import User
 
@@ -18,3 +18,8 @@ class UserRegistrationForm(UserCreationForm):
     class Meta(UserCreationForm.Meta):
         model = User
         fields = UserCreationForm.Meta.fields + ("first_name", "last_name", "email")
+class CustomPasswordChangeForm(PasswordChangeForm):
+    username = forms.CharField()
+    
+    def clean_username(self):
+        return self.cleaned_data['username']

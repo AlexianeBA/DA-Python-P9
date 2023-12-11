@@ -16,7 +16,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from manage_user.views import authenticate, login_page, signup_page
+from manage_user.views import authenticate, login_page, signup_page, logout, change_password
 
 
 urlpatterns = [
@@ -24,4 +24,6 @@ urlpatterns = [
     path("litrevu/", authenticate, name="LITRevu"),
     path("login/", login_page, name="login"),
     path("signup/", signup_page, name="signup"),
+    path("logout/", logout, name="logout"),
+    path("change_password", change_password, name="change_password")
 ]
