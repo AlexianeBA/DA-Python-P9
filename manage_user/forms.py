@@ -22,4 +22,7 @@ class CustomPasswordChangeForm(PasswordChangeForm):
     username = forms.CharField()
     
     def clean_username(self):
-        return self.cleaned_data['username']
+        username = self.cleaned_data['username']
+        if not username:
+            raise forms.ValidationError("Le nom d'utilisateur est requis.")
+        return username
