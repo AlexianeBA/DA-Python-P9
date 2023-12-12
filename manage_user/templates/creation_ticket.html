@@ -6,15 +6,17 @@
     <title>Document</title>
 </head>
 <body>
+{% block content %}
     <h1>Créer un ticket</h1>
 
     <div>
         
-        <form method="post" enctype="multipart/form-data">
-            {% csrf_token %}
+        <form method="post", enctype="multipart/form-data">
             {{ form.as_p }}
-            <button type="submit">Créer l'article</button>
+            {% csrf_token %}
+            <button type="submit">Créer un ticket</button>
         </form>
     </div>
+{% endblock content %}
 </body>
 </html>

@@ -3,15 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>tickets</title>
 </head>
 <body>
-    <h1>Liste des articles</h1>
+    <h1>Liste des tickets</h1>
 
-    {% for article in articles %}
+    {% for ticket in tickets %}
         <div>
-            <h2>{{ article.title }}</h2>
-            <p>{{ article.content }}</p>
+            <h2>{{ ticket.title }}</h2>
+            <p>{{ ticket.content }}</p>
+            <img src="{% if ticket.image %}{{ ticket.image.url }}{% endif %} alt="image">
         </div>
     {% endfor %}
 </body>

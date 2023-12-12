@@ -7,7 +7,7 @@ from django.conf import settings
 from django.contrib.auth.forms import UserCreationForm
 from .forms import CustomPasswordChangeForm
 from django.contrib import messages
-from manage_review.forms import ArticleForm
+from manage_review.forms import TicketForm
 
 # Create your views here.
 
@@ -63,13 +63,16 @@ def change_password(request):
         form = CustomPasswordChangeForm(user=request.user)
     return render(request, 'change_password.html', {'form': form})
 
-def creation_review(request):
+def creation_ticket(request):
     if request.method == 'POST':
-        form = ArticleForm(request.POST)
+        form = TicketForm(request.POST, request.FILES)
         if form.is_valid():
-            form.save()
-            return redirect('liste_articles')  # Redirect to the list of articles after creation
+            ticket_instance = form.save(commit=False)
+            ticket_instance.user = request.user
+            ticket_instance.uploader = request.user
+            ticket_instance.save()
+            return redirect('posts') 
     else:
-        form = ArticleForm()
+        form = TicketForm()
 
-    return render(request, 'creation_review.html', {'form': form})
+    return render(request, 'creation_ticket.html', {'form': form})
