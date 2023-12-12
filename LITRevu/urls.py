@@ -18,7 +18,7 @@ from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import path
-from manage_user.views import authenticate, login_page, signup_page, logout, change_password, creation_ticket 
+from manage_user.views import authenticate, login_page, signup_page, logout, change_password, creation_ticket
 from manage_review.views import posts
 
 urlpatterns = [
