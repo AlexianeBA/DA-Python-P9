@@ -1,22 +1,20 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
-</head>
-<body>
-{% block content %}
+  </head>
+  <body>
+    {% block content %}
     <h1>Créer un ticket</h1>
 
     <div>
-        
-        <form method="post", enctype="multipart/form-data">
-            {{ form.as_p }}
-            {% csrf_token %}
-            <button type="submit">Créer un ticket</button>
-        </form>
+      <form method="post" enctype="multipart/form-data">
+        {{ form.as_p }} {% csrf_token %}
+        <button type="submit">Créer un ticket</button>
+      </form>
     </div>
-{% endblock content %}
-</body>
+    {% endblock content %}
+  </body>
 </html>

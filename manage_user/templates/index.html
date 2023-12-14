@@ -1,30 +1,46 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://www.markuptag.com/bootstrap/5/css/bootstrap.min.css" />
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://www.markuptag.com/bootstrap/5/css/bootstrap.min.css"
+    />
     <title>LITRevu</title>
-</head>
-<body>
+  </head>
+  <body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="#"><img src="" alt="logo LITRevu" class="text-warning"></a>
-        
-            
-        </div>
+      <div class="container-fluid">
+        {% load static %}
+        <img src="{% static 'images/logo_litrevu.jpg' %}" alt="My image" />
+      </div>
     </nav>
     <form class="d-flex" method="post" action="{% url 'login' %}">
-        {% csrf_token %}
-        <input class="form-control me-2" type="text" name="username" placeholder="Username" />
-        <input class="form-control me-2" type="password" name="password" placeholder="Password" />
-        <button class="btn btn-warning" type="submit">Login</button>
-        
+      {% csrf_token %}
+      <input
+        class="form-control me-2"
+        type="text"
+        name="username"
+        placeholder="Username"
+      />
+      <input
+        class="form-control me-2"
+        type="password"
+        name="password"
+        placeholder="Password"
+      />
+      <button class="btn btn-warning" type="submit">Login</button>
     </form>
-    <p>Mot de passe oublié? <a href="{% url 'change_password' %}">Cliquez ici</a></p>
-    <p>Pas encore membre? <a href="{% url 'signup' %}">Inscrivez-vous maintenant !</a></p>
+    <p>
+      Mot de passe oublié? <a href="{% url 'change_password' %}">Cliquez ici</a>
+    </p>
+    <p>
+      Pas encore membre?
+      <a href="{% url 'signup' %}">Inscrivez-vous maintenant !</a>
+    </p>
 
     <!-- Bootstrap JS -->
     <script src="https://www.markuptag.com/bootstrap/5/js/bootstrap.bundle.min.js"></script>
-</body>
+  </body>
 </html>

@@ -18,8 +18,14 @@ from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import path
-from manage_user.views import authenticate, login_page, signup_page, logout, change_password, creation_ticket
-from manage_review.views import posts
+from manage_user.views import (
+    authenticate,
+    login_page,
+    signup_page,
+    logout,
+    change_password,
+)
+from manage_review.views import creation_ticket, delete_ticket, ticket_list
 
 urlpatterns = [
     path("admin/", admin.site.urls),
@@ -28,10 +34,10 @@ urlpatterns = [
     path("signup/", signup_page, name="signup"),
     path("logout/", logout, name="logout"),
     path("change_password", change_password, name="change_password"),
-    path("creation/ticket/", creation_ticket, name="creation_ticket"),
-    path('posts/', posts, name='posts'),
-    
+    path("creation_ticket/", creation_ticket, name="creation_ticket"),
+    path("ticket_list/", ticket_list, name="ticket_list"),
+    path("delete_ticket/<int:ticket_id>/", delete_ticket, name="delete_ticket"),
 ]
 
 if settings.DEBUG:
-    urlpatterns += static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

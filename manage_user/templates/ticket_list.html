@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>tickets</title>
+  </head>
+  <body>
+    <h1>Liste des tickets</h1>
+
+    {% load static %} {% for ticket in tickets %}
+    <div>
+      <h2>{{ ticket.title }}</h2>
+      <p>{{ ticket.content }}</p>
+
+      {% if ticket.image %}
+
+      <img src="{% static ticket.image.url %}" alt="image" />
+      {% else %}
+
+      <p>Image non valide</p>
+      {% endif %}
+
+      <a href="{% url 'delete_ticket' ticket.id %}">Delete</a>
+    </div>
+    {% endfor %}
+  </body>
+</html>

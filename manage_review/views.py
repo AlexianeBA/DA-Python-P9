@@ -1,20 +1,39 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from .forms import TicketForm
 from .models import Ticket
+
 # Create your views here.
 
-def create_ticket(request):
-    if request.method == 'POST':
+
+def creation_ticket(request):
+    context = {}
+    if request.method == "POST":
         form = TicketForm(request.POST, request.FILES)
         if form.is_valid():
-            new_ticket = form.save(commit=False)
-            new_ticket.uploader = request.user
-            new_ticket.save()
-            return redirect('posts')  
-    return render(request, 'create_ticket.html', content={'form': form})
+            ticket_instance = form.save(commit=False)
+            user = request.user
+            ticket_instance.user = user
+            ticket_instance.uploader = user
+            ticket_instance.save()
+            context["username"] = user.username
+            return render(request, "login.html", context)
+    else:
+        form = TicketForm()
+        context["form"] = form
+        return render(request, "creation_ticket.html", context)
 
-def posts(request):
+
+def ticket_list(request):
     ticket = Ticket.objects.all()
-    print(f"Number of tickets: {ticket.count()}")
-    return render(request, 'posts.html', context={'tickets': ticket})
+    context = {"tickets": ticket}
+    return render(request, "ticket_list.html", context)
 
+
+def delete_ticket(request, ticket_id):
+    ticket = get_object_or_404(Ticket, id=ticket_id)
+
+    if request.method == "POST":
+        ticket.delete()
+        return redirect("ticket_list")
+
+    return render(request, "delete_ticket.html", {"ticket": ticket})
