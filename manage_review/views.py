@@ -16,7 +16,7 @@ def creation_ticket(request):
             ticket_instance.uploader = user
             ticket_instance.save()
             context["username"] = user.username
-            return render(request, "login.html", context)
+            return redirect('flux')
     else:
         form = TicketForm()
         context["form"] = form
@@ -28,6 +28,9 @@ def ticket_list(request):
     context = {"tickets": ticket}
     return render(request, "ticket_list.html", context)
 
+def flux(request):
+    tickets = Ticket.objects.all().order_by('-created_at')
+    return render(request, "flux.html", {'tickets': tickets})
 
 def edit_ticket(request, ticket_id):
     ticket = get_object_or_404(Ticket, id=ticket_id)

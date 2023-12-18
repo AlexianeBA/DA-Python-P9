@@ -20,13 +20,13 @@
                       <a class="nav-link active" aria-current="page" href="#">LITRevu</a>
                   </li>
                   <li class="nav-item">
-                      <a class="nav-link" href="#">Flux</a>
+                      <a class="nav-link" href="{% url 'flux' %}">Flux</a>
                   </li>
                   <li class="nav-item">
                     <a class="nav-link" href="{% url 'ticket_list' %}">Liste des tickets</a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link" href="#">Abonnements</a>
+                  <a class="nav-link" href="{% url 'follow' %}">Abonnements</a>
               </li>
               <li class="nav-item">
                 <a class="nav-link" href="{% url 'LITRevu' %}">Se déconnecter</a>
@@ -37,31 +37,8 @@
           </div>
       </div>
   </nav>
-  <div class="navigation">
-    <a href="{% url 'creation_ticket' %}">Créer une critique</a>
-    <a href="#">Demander une critique</a>
-  </div> 
-  <section class="publication">
-    <p>Vous avez publié une critique</p>
-    <p>Date et heure</p>
-    <h3>Titre critique</h3>
-    <p>Commentaire critique</p>
-    <div class="ticket">
-        <p>Ticket - nom user</p>
-        <h4>Titre de l'oeuvre - nom auteur</h4>
-        <img>Image oeuvre</img>
-
-    </div>
+  <p>Vous êtes connecté {{user.username}}</p>
   </section>
-  {% if user != profile_user %}
-  {% if profile_user.username %}
-      {% if user in profile_user.followers.all %}
-          <a href="{% url 'unfollow_user' username=profile_user.username %}">Unfollow</a>
-      {% else %}
-          <a href="{% url 'follow_user' username=profile_user.username %}">Follow</a>
-      {% endif %}
-  {% endif %}
-{% endif %}
 
 
 

@@ -27,7 +27,7 @@ from manage_user.views import (
     follow_user,
     unfollow_user
 )
-from manage_review.views import creation_ticket, edit_ticket, ticket_list
+from manage_review.views import creation_ticket, edit_ticket, ticket_list, flux
 
 urlpatterns = [
     path("admin/", admin.site.urls),
@@ -41,6 +41,8 @@ urlpatterns = [
     path("edit_ticket/<int:ticket_id>/", edit_ticket, name="edit_ticket"),
     path('follow/<str:username>/', follow_user, name='follow_user'),
     path('unfollow/<str:username>/', unfollow_user, name='unfollow_user'),
+    path('flux/', flux, name='flux'),
+    path('follow/', follow_user, name='follow')
     
     
 ]
