@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from .forms import TicketForm
+from .forms import TicketForm, DeleteTicketForm
 from .models import Ticket
 
 # Create your views here.
@@ -29,11 +29,23 @@ def ticket_list(request):
     return render(request, "ticket_list.html", context)
 
 
-def delete_ticket(request, ticket_id):
+def edit_ticket(request, ticket_id):
     ticket = get_object_or_404(Ticket, id=ticket_id)
-
-    if request.method == "POST":
-        ticket.delete()
-        return redirect("ticket_list")
-
-    return render(request, "delete_ticket.html", {"ticket": ticket})
+    edit_form = TicketForm(instance=ticket)
+    delete_form = DeleteTicketForm()
+    if request.method == 'POST':
+        edit_form = TicketForm(request.POST, instance=ticket)
+        if edit_form.is_valid():
+            edit_form.save()
+            return redirect('')
+        if 'delete_ticket' in request.POST:
+            delete_form = DeleteTicketForm(request.POST)
+            if delete_form.is_valid():
+                ticket.delete()
+                return redirect('login')
+    context = {
+        'edit_form': edit_form,
+        'delete_form': delete_form,
+    }
+    return render(request, 'edit_ticket.html', context=context)
+    

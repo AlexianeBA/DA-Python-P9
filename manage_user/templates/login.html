@@ -53,6 +53,16 @@
 
     </div>
   </section>
+  {% if user != profile_user %}
+  {% if profile_user.username %}
+      {% if user in profile_user.followers.all %}
+          <a href="{% url 'unfollow_user' username=profile_user.username %}">Unfollow</a>
+      {% else %}
+          <a href="{% url 'follow_user' username=profile_user.username %}">Follow</a>
+      {% endif %}
+  {% endif %}
+{% endif %}
+
 
 
   </body>

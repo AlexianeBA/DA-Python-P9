@@ -7,6 +7,8 @@ from django.conf import settings
 from django.contrib.auth.forms import UserCreationForm
 from .forms import CustomPasswordChangeForm
 from django.contrib import messages
+from django.contrib.auth.decorators import login_required
+from manage_user.models import UserFollows
 
 
 # Create your views here.
@@ -23,13 +25,13 @@ def login_page(request):
         password = request.POST.get("password")
         user = django.contrib.auth.authenticate(username=username, password=password)
 
-    if user is not None:
-        login(request, user)
-        print(f"Bienvenue, {user.username}")
-        context["username"] = username
-        return render(request, "login.html", context)
-
-    return render(request, "", context)
+        if user is not None:
+            login(request, user)
+            print(f"Bienvenue, {user.username}")
+            context["username"] = username
+            return render(request, "login.html", context)
+        context["error_message"] = "Nom d'utilisateur ou mot de passe incorrect"
+    return render(request, "login.html", context)
 
 
 def signup_page(request):
@@ -67,3 +69,16 @@ def change_password(request):
     else:
         form = CustomPasswordChangeForm(user=request.user)
     return render(request, "change_password.html", {"form": form})
+
+@login_required
+def follow_user(request, username):
+    user_to_follow = get_object_or_404(username=username)
+    if user_to_follow != request.user:
+        UserFollows.objects.get_or_create(user=request.user, follow_user=user_to_follow)
+    return redirect('login', username=username)
+
+@login_required
+def unfollow_user(request, username):
+    user_to_unfollow = get_object_or_404(username=username)
+    UserFollows.objects.filter(user=request.user, follow_user=user_to_unfollow.delete())
+    return redirect('login', username=username)

@@ -24,8 +24,10 @@ from manage_user.views import (
     signup_page,
     logout,
     change_password,
+    follow_user,
+    unfollow_user
 )
-from manage_review.views import creation_ticket, delete_ticket, ticket_list
+from manage_review.views import creation_ticket, edit_ticket, ticket_list
 
 urlpatterns = [
     path("admin/", admin.site.urls),
@@ -36,7 +38,11 @@ urlpatterns = [
     path("change_password", change_password, name="change_password"),
     path("creation_ticket/", creation_ticket, name="creation_ticket"),
     path("ticket_list/", ticket_list, name="ticket_list"),
-    path("delete_ticket/<int:ticket_id>/", delete_ticket, name="delete_ticket"),
+    path("edit_ticket/<int:ticket_id>/", edit_ticket, name="edit_ticket"),
+    path('follow/<str:username>/', follow_user, name='follow_user'),
+    path('unfollow/<str:username>/', unfollow_user, name='unfollow_user'),
+    
+    
 ]
 
 if settings.DEBUG:
