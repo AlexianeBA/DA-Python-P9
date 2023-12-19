@@ -42,8 +42,8 @@ urlpatterns = [
     path('follow/<str:username>/', follow_user, name='follow_user'),
     path('unfollow/<str:username>/', unfollow_user, name='unfollow_user'),
     path('flux/', flux, name='flux'),
-    path('follow/', follow_user, name='follow')
-    path('create_review/', create_review, name='create_review')
+    path('follow/', follow_user, name='follow'),
+    path("create_review/", create_review, name='create_review')
     
 ]
 

@@ -52,14 +52,11 @@
     </nav>
     <div class="navigation">
       <a href="{% url 'creation_ticket' %}">Demander une critique</a>
-      <a href="#">Créer une critique</a>
+      <a href="{% url 'create_review' %}">Créer une critique</a>
     </div>
     {% block content %}
     <h2>Flux</h2>
-
-    {% for message in messages %}
-    <div>{{ message }}</div>
-    {% endfor %} {% for ticket in tickets %}
+    {% for ticket in tickets %}
     <div>
       {{ ticket.user.username }} added a ticket on {{ ticket.created_at }} {{ ticket.image }}
     </div>

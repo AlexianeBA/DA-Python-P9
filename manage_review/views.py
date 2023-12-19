@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from .forms import TicketForm, DeleteTicketForm
-from .models import Ticket
+from .forms import TicketForm, DeleteTicketForm, ReviewForm
+from .models import Ticket, Review
 
 # Create your views here.
 
@@ -30,7 +30,8 @@ def ticket_list(request):
 
 def flux(request):
     tickets = Ticket.objects.all().order_by('-created_at')
-    return render(request, "flux.html", {'tickets': tickets})
+    reviews = Review.objects.all()
+    return render(request, "flux.html", {'tickets': tickets}, {'reviews': reviews})
 
 def edit_ticket(request, ticket_id):
     ticket = get_object_or_404(Ticket, id=ticket_id)
@@ -52,5 +53,18 @@ def edit_ticket(request, ticket_id):
     }
     return render(request, 'edit_ticket.html', context=context)
     
-def create_review():
-    pass
+
+    
+def create_review(request):
+    if request.method == "POST":
+        form = ReviewForm(request.POST, request.FILES)
+        if form.is_valid():
+            review_instance = form.save(commit=False)
+            user = request.user
+            review_instance.user = user
+            review_instance.uploader = user
+            review_instance.save()
+            return redirect('flux')
+    else:
+        form = ReviewForm()
+    return render(request, "create_review.html", {'form': form})
