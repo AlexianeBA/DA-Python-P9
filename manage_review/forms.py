@@ -13,7 +13,7 @@ class DeleteTicketForm(forms.Form):
     
     
 class ReviewForm(forms.ModelForm):
-    edit_review = forms.BooleanField(widget=forms.HiddenInput, initial=True)
+    ticket_id = forms.IntegerField()
     class Meta:
         model = Review
-        fields = ['user', 'rating', 'body' ]
+        fields = ['ticket_id', 'rating', 'headline', 'body' ]

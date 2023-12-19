@@ -10,11 +10,11 @@
     <h1>Créer une critique</h1>
 
     <div>
-      <form method="post" enctype="multipart/form-data">
-        {{ form.as_p }} {% csrf_token %}
+    
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
         <button type="submit">Créer une critique</button>
-      </form>
-    </div>
-    {% endblock content %}
+    </form>
   </body>
 </html>
