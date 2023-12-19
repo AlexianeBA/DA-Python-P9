@@ -74,11 +74,11 @@ def change_password(request):
 def follow_user(request, username):
     user_to_follow = get_object_or_404(User, username=username)
     if user_to_follow != request.user:
-        UserFollows.objects.get_or_create(user=request.user, follow_user=user_to_follow)
+        UserFollows.objects.get_or_create(user=request.user, followed_user=user_to_follow)
     return redirect('login', username=username)
 
 @login_required
 def unfollow_user(request, username):
     user_to_unfollow = get_object_or_404(User, username=username)
-    UserFollows.objects.filter(user=request.user, follow_user=user_to_unfollow.delete())
+    UserFollows.objects.filter(user=request.user, followed_user=user_to_unfollow).delete()
     return redirect('login', username=username)

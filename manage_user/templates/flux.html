@@ -41,7 +41,7 @@
               >
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="{% url'follow' %}">Abonnements</a>
+              <a class="nav-link" href="{% url 'follow' %}">Abonnements</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="{% url 'LITRevu' %}">Se déconnecter</a>
@@ -61,7 +61,7 @@
     <div>{{ message }}</div>
     {% endfor %} {% for ticket in tickets %}
     <div>
-      {{ ticket.user.username }} added a ticket on {{ ticket.created_at }}
+      {{ ticket.user.username }} added a ticket on {{ ticket.created_at }} {{ ticket.image }}
     </div>
     {% endfor %} {% endblock %}
   </body>

@@ -52,3 +52,5 @@ def edit_ticket(request, ticket_id):
     }
     return render(request, 'edit_ticket.html', context=context)
     
+def create_review():
+    pass
