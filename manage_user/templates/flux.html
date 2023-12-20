@@ -13,7 +13,7 @@
 
     <h2>Flux</h2>
 
-    <!-- Display Tickets -->
+    <h3>Tickets</h3>
     {% for ticket in tickets %}
     <div>
       {{ ticket.user.username }} added a ticket titled "{{ ticket.title }}" on
@@ -24,10 +24,11 @@
     {% endfor %}
 
     <!-- Display Reviews -->
+    <h3>Reviews</h3>
     {% for review in reviews %}
     <div>
-      Review for ticket "{{ review.ticket.title }}" by {{ review.user.username
-      }}: Rating: {{ review.rating }}
+      Review for "{{ review.headline }}" by {{ review.user.username }}: Note: {{
+      review.rating }} Commentaire: {{review.body}}
     </div>
     {% endfor %}
   </body>

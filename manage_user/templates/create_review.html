@@ -3,16 +3,25 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
+    <title>Créer une critique</title>
   </head>
   <body>
-    {% block content %}
     <h1>Créer une critique</h1>
+    {% block content %}
+    <h3>Livre / Article</h3>
 
     <div>
       <form method="post" enctype="multipart/form-data">
-        {{ form.as_p }} {% csrf_token %}
-        <button type="submit">Créer une critique</button>
+        {{ ticket_form.as_p }} {% csrf_token %}
+      </form>
+    </div>
+
+    <h3>Critique</h3>
+
+    <div>
+      <form method="post" enctype="multipart/form-data">
+        {{ review_form.as_p }} {% csrf_token %}
+        <button type="submit">Envoyer</button>
       </form>
     </div>
     {% endblock content %}

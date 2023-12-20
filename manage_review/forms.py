@@ -13,7 +13,9 @@ class DeleteTicketForm(forms.Form):
     
     
 class ReviewForm(forms.ModelForm):
-    ticket_id = forms.IntegerField()
+    headline = forms.CharField(label="Titre")
+    rating = forms.TypedChoiceField(choices=zip(range(1,6), range(1,6)), coerce=int, widget=forms.CheckboxSelectMultiple, label="Note")
+    body = forms.CharField(label="Commentaire")
     class Meta:
         model = Review
-        fields = ['ticket_id', 'rating', 'headline', 'body' ]
+        fields = ['headline', 'rating', 'body' ]
