@@ -60,22 +60,24 @@ def edit_ticket(request, ticket_id):
     
 def create_review(request):
     context = {}
+
     if request.method == "POST":
-        ticket_form = TicketForm(request.POST)
-        review_form = ReviewForm(request.POST)
-        if ticket_form.is_valid() and review_form.is_valid():
-            review_instance = review_form.save(commit=False)
+        form = ReviewForm(request.POST)
+        if form.is_valid():
+            review_instance = form.save(commit=False)
             user = request.user
-            ticket_id = ticket_form.cleaned_data['ticket_id']
-            ticket_instance = Ticket.objects.get(pk=ticket_id)
-            review_instance.ticket = ticket_instance
             review_instance.user = user
             review_instance.save()
             context["username"] = user.username
             return redirect('flux')
     else:
-        ticket_form = TicketForm()
-        review_form = ReviewForm()
-    context["ticket_form"] = ticket_form
-    context["review_form"] = review_form
+        form = ReviewForm()
+
+    # Passez le queryset des tickets au formulaire
+    form.fields['ticket'].queryset = Ticket.objects.all()
+
+    context["form"] = form
     return render(request, "create_review.html", context)
+
+def create_new_review():
+    pass

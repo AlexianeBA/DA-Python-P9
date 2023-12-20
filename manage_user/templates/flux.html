@@ -8,7 +8,7 @@
   <body>
     <div class="navigation">
       <a href="{% url 'creation_ticket' %}">Demander une critique</a>
-      <a href="{% url 'create_review' %}">Créer une critique</a>
+      <a href="{% url 'create_new_review' %}">Créer une critique</a>
     </div>
 
     <h2>Flux</h2>
@@ -20,15 +20,15 @@
       {{ ticket.created_at }} {% if ticket.image %}
       <img src="{{ ticket.image.url }}" alt="{{ ticket.title }} image" />
       {% endif %}
+      <a href="{% url 'create_review' %}">Ajouter une critique</a>
     </div>
     {% endfor %}
 
     <!-- Display Reviews -->
-    <h3>Reviews</h3>
     {% for review in reviews %}
     <div>
-      Review for "{{ review.headline }}" by {{ review.user.username }}: Note: {{
-      review.rating }} Commentaire: {{review.body}}
+      Review for ticket "{{ review.ticket.title }}" by {{ review.user.username
+      }}: Rating: {{ review.rating }}
     </div>
     {% endfor %}
   </body>
