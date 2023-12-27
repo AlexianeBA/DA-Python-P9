@@ -13,8 +13,7 @@ from manage_user.models import UserFollows
 
 # Create your views here.
 
-
-def authenticate(request):
+def home_view(request):
     return render(request, "index.html")
 
 
@@ -29,9 +28,9 @@ def login_page(request):
             login(request, user)
             print(f"Bienvenue, {user.username}")
             context["username"] = username
-            return render(request, "login.html", context)
+            return render(request, "flux.html", context)
         context["error_message"] = "Nom d'utilisateur ou mot de passe incorrect"
-    return render(request, "login.html", context)
+    return render(request, "index.html", context)
 
 
 def signup_page(request):
@@ -70,14 +69,13 @@ def change_password(request):
         form = CustomPasswordChangeForm(user=request.user)
     return render(request, "change_password.html", {"form": form})
 
-@login_required
+
 def follow_user(request, username):
     user_to_follow = get_object_or_404(User, username=username)
     if user_to_follow != request.user:
         UserFollows.objects.get_or_create(user=request.user, followed_user=user_to_follow)
     return redirect('login', username=username)
 
-@login_required
 def unfollow_user(request, username):
     user_to_unfollow = get_object_or_404(User, username=username)
     UserFollows.objects.filter(user=request.user, followed_user=user_to_unfollow).delete()

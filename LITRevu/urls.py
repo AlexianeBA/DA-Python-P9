@@ -19,7 +19,7 @@ from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import path
 from manage_user.views import (
-    authenticate,
+    home_view,
     login_page,
     signup_page,
     logout,
@@ -31,7 +31,7 @@ from manage_review.views import creation_ticket, edit_ticket, ticket_list, flux,
 
 urlpatterns = [
     path("admin/", admin.site.urls),
-    path("", authenticate, name="LITRevu"),
+    path("", home_view, name="LITRevu"),
     path("login/", login_page, name="login"),
     path("signup/", signup_page, name="signup"),
     path("logout/", logout, name="logout"),

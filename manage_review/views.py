@@ -5,7 +5,9 @@ from itertools import chain
 from operator import attrgetter
 
 
+
 # Create your views here.
+from django.contrib.auth.decorators import login_required
 
 
 def creation_ticket(request):
