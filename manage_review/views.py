@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from .forms import TicketForm, DeleteTicketForm, ReviewForm
+from .forms import TicketForm, DeleteTicketForm, ReviewForm, NewReviewForm
 from .models import Ticket, Review
 from itertools import chain
 from operator import attrgetter
@@ -34,6 +34,8 @@ def ticket_list(request):
 def flux(request):
     tickets = Ticket.objects.all().order_by('-created_at')
     reviews = Review.objects.all().order_by('-time_created')
+    print(tickets)
+    print(reviews)
     return render(request, "flux.html", {'tickets': tickets, 'reviews': reviews})
 
 def edit_ticket(request, ticket_id):
@@ -72,12 +74,25 @@ def create_review(request):
             return redirect('flux')
     else:
         form = ReviewForm()
-
-    # Passez le queryset des tickets au formulaire
     form.fields['ticket'].queryset = Ticket.objects.all()
 
     context["form"] = form
     return render(request, "create_review.html", context)
 
-def create_new_review():
-    pass
+def create_new_review(request):
+    context = {}
+    
+    if request.method == "POST":
+        form = NewReviewForm(request.POST)
+        if form.is_valid():
+            review_instance = form.save(commit=False)
+            user = request.user
+            review_instance.user = user
+            review_instance.save()
+            context["username"] = user.username
+            return redirect('flux')
+    else:
+        form = NewReviewForm()
+   
+    context["form"] = form
+    return render(request, "create_new_review.html", context)

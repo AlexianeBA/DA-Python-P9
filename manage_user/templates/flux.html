@@ -3,32 +3,66 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Flux</title>
+    <link
+      rel="stylesheet"
+      href="https://www.markuptag.com/bootstrap/5/css/bootstrap.min.css"
+    />
+    <title>LITRevu</title>
   </head>
   <body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="#"
+          ><img src="" alt="logo LITRevu" class="text-warning"
+        /></a>
+
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#mob-navbar"
+          aria-label="Toggle"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="mob-navbar">
+          <ul class="navbar-nav mb-2 mb-lg-0 mx-auto">
+            <li class="nav-item">
+              <a class="nav-link active" href="{% url 'flux' %}">Flux</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'ticket_list' %}">Posts</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'follow' %}">Abonnements</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'LITRevu' %}">Se déconnecter</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
     <div class="navigation">
       <a href="{% url 'creation_ticket' %}">Demander une critique</a>
       <a href="{% url 'create_new_review' %}">Créer une critique</a>
     </div>
 
-    <h2>Flux</h2>
-
-    <h3>Tickets</h3>
-    {% for ticket in tickets %}
+    {% for ticket in tickets %} {{ ticket }}
     <div>
-      {{ ticket.user.username }} added a ticket titled "{{ ticket.title }}" on
-      {{ ticket.created_at }} {% if ticket.image %}
+      {{ ticket.user.username }} a ajouté un ticket au nom de "{{ ticket.title
+      }}" le {{ ticket.created_at }} {% if ticket.image %}
       <img src="{{ ticket.image.url }}" alt="{{ ticket.title }} image" />
       {% endif %}
       <a href="{% url 'create_review' %}">Ajouter une critique</a>
     </div>
-    {% endfor %}
-
-    <!-- Display Reviews -->
-    {% for review in reviews %}
+    {% endfor %} {% for review in reviews %}
     <div>
-      Review for ticket "{{ review.ticket.title }}" by {{ review.user.username
-      }}: Rating: {{ review.rating }}
+      {% if review.ticket %} Nouvelle critique pour le ticket "{{
+      review.ticket.title }}" ajouté par {{ review.user.username }}: Critique:
+      {{ review.body }}, Note: {{ review.rating }} {% else %} Nouvelle critique
+      de {{ review.user.username }}: Critique: {{ review.body }} Note: {{
+      review.rating }}{%endif %}
     </div>
     {% endfor %}
   </body>

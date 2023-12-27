@@ -26,3 +26,6 @@ class CustomPasswordChangeForm(PasswordChangeForm):
         if not username:
             raise forms.ValidationError("Le nom d'utilisateur est requis.")
         return username
+    
+class AddFollower():
+    pass
