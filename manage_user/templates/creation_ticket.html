@@ -3,39 +3,51 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="https://www.markuptag.com/bootstrap/5/css/bootstrap.min.css" />
-    <title>Login</title>
+    <link
+      rel="stylesheet"
+      href="https://www.markuptag.com/bootstrap/5/css/bootstrap.min.css"
+    />
+    <title>Document</title>
   </head>
   <body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
       <div class="container-fluid">
-          <a class="navbar-brand" href="#"><img src="" alt="logo LITRevu" class="text-warning"></a>
-      
-          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mob-navbar" aria-label="Toggle">
-          <span class="navbar-toggler-icon"></span>
-          </button>
-          <div class="collapse navbar-collapse" id="mob-navbar">
-              <ul class="navbar-nav mb-2 mb-lg-0 mx-auto">
-                  <li class="nav-item">
-                      <a class="nav-link active" aria-current="page" href="#">LITRevu</a>
-                  </li>
-                  <li class="nav-item">
-                      <a class="nav-link" href="{% url 'flux' %}">Flux</a>
-                  </li>
-                  <li class="nav-item">
-                    <a class="nav-link" href="{% url 'ticket_list' %}">Liste des tickets</a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" href="{% url 'follow' %}">Abonnements</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="{% url 'LITRevu' %}">Se déconnecter</a>
-            </li>
-        
-              </ul>
+        <a class="navbar-brand" href="#"
+          ><img src="" alt="logo LITRevu" class="text-warning"
+        /></a>
 
-          </div>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#mob-navbar"
+          aria-label="Toggle"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="mob-navbar">
+          <ul class="navbar-nav mb-2 mb-lg-0 mx-auto">
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" href="#"
+                >LITRevu</a
+              >
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'flux' %}">Flux</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'ticket_list' %}">Posts</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'follow' %}">Abonnements</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'LITRevu' %}">Se déconnecter</a>
+            </li>
+          </ul>
+        </div>
       </div>
+    </nav>
     {% block content %}
     <h1>Créer un ticket</h1>
 

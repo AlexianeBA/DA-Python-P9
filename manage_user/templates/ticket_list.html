@@ -61,8 +61,8 @@
       {% endif %}
 
       <a href="{% url 'edit_ticket' ticket.id %}">Modifier</a>
-      <form method="post">
-        {{ delete_form }} {% csrf_token %}
+      <form method="post" action="{% url 'delete_ticket' ticket.id %}">
+        {% csrf_token %}
         <button type="submit">Supprimer</button>
       </form>
     </div>

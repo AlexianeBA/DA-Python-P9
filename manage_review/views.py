@@ -96,3 +96,12 @@ def create_new_review(request):
    
     context["form"] = form
     return render(request, "create_new_review.html", context)
+
+
+def delete_ticket(request, ticket_id):
+    ticket = get_object_or_404(Ticket, id=ticket_id)
+
+    if request.method == 'POST':
+        ticket.delete()
+        return redirect('ticket_list')
+    return render(request, 'delete_ticket.html', {'ticket': ticket})
