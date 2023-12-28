@@ -48,22 +48,39 @@
       <a href="{% url 'create_new_review' %}">Créer une critique</a>
     </div>
 
-    {% for ticket in tickets %} {{ ticket }}
+    {% for ticket in tickets %} {% if ticket.user == user %}
     <div>
-      {{ ticket.user.username }} a ajouté un ticket au nom de "{{ ticket.title
-      }}" le {{ ticket.created_at }} {% if ticket.image %}
+      Vous avez publié le ticket "{{ ticket.title }}" le {{ ticket.created_at
+      }}{% if ticket.image %}
       <img src="{{ ticket.image.url }}" alt="{{ ticket.title }} image" />
       {% endif %}
       <a href="{% url 'create_review' %}">Ajouter une critique</a>
     </div>
-    {% endfor %} {% for review in reviews %}
+    {% else %}
+    <div>
+      {{ ticket.user.username }} a ajouté un ticket au nom de "{{ ticket }}" le
+      {{ ticket.created_at }} {% if ticket.image %}
+      <img src="{{ ticket.image.url }}" alt="{{ ticket.title }} image" />
+      {% endif %}
+      <a href="{% url 'create_review' %}">Ajouter une critique</a>
+    </div>
+    {% endif %} {% empty %}
+    <p>Aucun ticket disponible.</p>
+    {% endfor %} {% for review in reviews %} {% if review.user == user %}
+    <div>
+      Vous avez publié une critique pour le ticket "{{ review.ticket.title }}"
+      ajouté par {{ review.user.username }}: Critique : {{ review.body }}, Note:
+      {{ review.rating }}
+    </div>
+    {% else %}
     <div>
       {% if review.ticket %} Nouvelle critique pour le ticket "{{
-      review.ticket.title }}" ajouté par {{ review.user.username }}: Critique:
-      {{ review.body }}, Note: {{ review.rating }} {% else %} Nouvelle critique
-      de {{ review.user.username }}: Critique: {{ review.body }} Note: {{
-      review.rating }}{%endif %}
+      review.ticket.title }}" ajoutée par {{ review.user.username }}: {% else %}
+      Nouvelle critique de {{ review.user.username }}: {% endif %} Critique: {{
+      review.body }}, Note: {{ review.rating }}
     </div>
+    {% endif %} {% empty %}
+    <p>Aucune critique disponible.</p>
     {% endfor %}
   </body>
 </html>

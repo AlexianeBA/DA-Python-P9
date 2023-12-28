@@ -30,6 +30,5 @@ class Review(models.Model):
     )
     headline = models.CharField(max_length=128)
     body = models.CharField(max_length=8192, blank=True)
-    user = models.ForeignKey(to=settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
     time_created = models.DateTimeField(default=timezone.now)
-    

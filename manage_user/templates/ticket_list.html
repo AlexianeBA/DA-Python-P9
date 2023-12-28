@@ -45,18 +45,16 @@
         </div>
       </div>
     </nav>
+    {% load static %} {% if user.is_authenticated %}
     <h1>Vos posts</h1>
-
-    {% load static %} {% for ticket in tickets %}
+    {% for ticket in tickets %}
     <div>
       <h2>{{ ticket.title }}</h2>
       <p>{{ ticket.content }}</p>
 
       {% if ticket.image %}
-
       <img src="{% static ticket.image.url %}" alt="image" />
       {% else %}
-
       <p>Image non valide</p>
       {% endif %}
 
@@ -66,7 +64,9 @@
         <button type="submit">Supprimer</button>
       </form>
     </div>
-    {% endfor %}
+    {% endfor %} {% else %}
+    <p>Connectez-vous pour voir vos tickets.</p>
+    {% endif %}
   </body>
   <script src="https://www.markuptag.com/bootstrap/5/js/bootstrap.bundle.min.js"></script>
 </html>
