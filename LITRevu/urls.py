@@ -23,7 +23,7 @@ from manage_user.views import (
     login_page,
     signup_page,
     change_password,
-    follow_user,
+    # follow_user,
     signout,
 )
 from manage_review.views import (
@@ -47,7 +47,7 @@ urlpatterns = [
     path("creation_ticket/", creation_ticket, name="creation_ticket"),
     path("ticket_list/", ticket_list, name="ticket_list"),
     path("edit_ticket/<int:ticket_id>/", edit_ticket, name="edit_ticket"),
-    path("follow/<str:username>/", follow_user, name="follow"),
+    # path("follow/<str:username>/", follow_user, name="follow"),
     path("flux/", flux, name="flux"),
     path("create_review/", create_review, name="create_review"),
     path("create_new_review/", create_new_review, name="create_new_review"),

@@ -6,11 +6,10 @@ from django.contrib.auth.forms import UserCreationForm
 from .forms import CustomPasswordChangeForm
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-from manage_user.models import UserFollows
+
 from django.contrib.auth import authenticate, login
 
-from .forms import SignUpForm, SignInForm, CustomPasswordChangeForm, FollowForm
-from .models import User
+from .forms import SignUpForm, SignInForm, CustomPasswordChangeForm
 
 
 # Create your views here.
@@ -71,15 +70,15 @@ def change_password(request):
     return render(request, "change_password.html", {"form": form})
 
 
-def follow_user(request, username):
-    if request.method == "POST":
-        form = FollowForm(request.POST)
-        if form.is_valid():
-            follow_instance = form.save(commit=False)
-            follow_instance.user = request.user
-            follow_instance.save()
-            return redirect("follow", username=username)
-    else:
-        form = FollowForm()
+# def follow_user(request, username):
+#     if request.method == "POST":
+#         form = FollowForm(request.POST)
+#         if form.is_valid():
+#             follow_instance = form.save(commit=False)
+#             follow_instance.user = request.user
+#             follow_instance.save()
+#             return redirect("follow", username=username)
+#     else:
+#         form = FollowForm()
 
-    return redirect(request, "follow", username=username)
+#     return redirect(request, "follow", username=username)
