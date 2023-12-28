@@ -9,7 +9,8 @@ from django.contrib.auth.decorators import login_required
 from manage_user.models import UserFollows
 from django.contrib.auth import authenticate, login
 
-from .forms import SignUpForm, SignInForm, CustomPasswordChangeForm
+from .forms import SignUpForm, SignInForm, CustomPasswordChangeForm, FollowForm
+from .models import User
 
 
 # Create your views here.
@@ -71,17 +72,14 @@ def change_password(request):
 
 
 def follow_user(request, username):
-    user_to_follow = get_object_or_404(User, username=username)
-    if user_to_follow != request.user:
-        UserFollows.objects.get_or_create(
-            user=request.user, followed_user=user_to_follow
-        )
-    return redirect("login", username=username)
+    if request.method == "POST":
+        form = FollowForm(request.POST)
+        if form.is_valid():
+            follow_instance = form.save(commit=False)
+            follow_instance.user = request.user
+            follow_instance.save()
+            return redirect("follow", username=username)
+    else:
+        form = FollowForm()
 
-
-def unfollow_user(request, username):
-    user_to_unfollow = get_object_or_404(User, username=username)
-    UserFollows.objects.filter(
-        user=request.user, followed_user=user_to_unfollow
-    ).delete()
-    return redirect("login", username=username)
+    return redirect(request, "follow", username=username)

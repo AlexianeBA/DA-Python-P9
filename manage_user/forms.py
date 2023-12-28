@@ -6,6 +6,7 @@ from django.contrib.auth.forms import (
     AuthenticationForm,
 )
 from django.contrib.auth.models import User
+from .models import UserFollows
 
 
 class SignUpForm(UserCreationForm):
@@ -30,5 +31,7 @@ class CustomPasswordChangeForm(PasswordChangeForm):
         return username
 
 
-class AddFollower:
-    pass
+class FollowForm(forms.ModelForm):
+    class Meta:
+        model = UserFollows
+        fields = ["followed_user"]

@@ -44,7 +44,7 @@
               <a class="nav-link" href="{% url'follow' %}">Abonnements</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="{% url 'LITRevu' %}">Se déconnecter</a>
+              <a class="nav-link" href="{% url 'logout' %}">Se déconnecter</a>
             </li>
           </ul>
         </div>
@@ -52,15 +52,20 @@
     </nav>
 
     </div>
-    {% if user != profile_user %}
-    {% if profile_user.username %}
-        {% if user in profile_user.followers.all %}
-            <a href="{% url 'unfollow_user' username=profile_user.username %}">Unfollow</a>
-        {% else %}
-            <a href="{% url 'follow_user' username=profile_user.username %}">Follow</a>
-        {% endif %}
-    {% endif %}
-    {% endif %}
+    <h1>Suivre d'autres utilisateurs</h1>
+    <input type="search" />
+    <button>Envoyer</button>
+
+    <h1>Abonnements</h1>
+    <h1>Abonnés</h1>
+    {% block content %}
+  <h2>Suivre un utilisateur</h2>
+  <form method="post" action="{% url 'follow_user' username=username %}">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Suivre</button>
+  </form>
+{% endblock %}
   </body>
   <script src="https://www.markuptag.com/bootstrap/5/js/bootstrap.bundle.min.js"></script>
 </html>

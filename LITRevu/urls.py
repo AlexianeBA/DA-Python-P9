@@ -24,10 +24,17 @@ from manage_user.views import (
     signup_page,
     change_password,
     follow_user,
-    unfollow_user,
-    signout
+    signout,
 )
-from manage_review.views import creation_ticket, edit_ticket, ticket_list, flux, create_review, create_new_review, delete_ticket
+from manage_review.views import (
+    creation_ticket,
+    edit_ticket,
+    ticket_list,
+    flux,
+    create_review,
+    create_new_review,
+    delete_ticket,
+)
 
 
 urlpatterns = [
@@ -40,16 +47,11 @@ urlpatterns = [
     path("creation_ticket/", creation_ticket, name="creation_ticket"),
     path("ticket_list/", ticket_list, name="ticket_list"),
     path("edit_ticket/<int:ticket_id>/", edit_ticket, name="edit_ticket"),
-    path('follow/<str:username>/', follow_user, name='follow_user'),
-    path('unfollow/<str:username>/', unfollow_user, name='unfollow_user'),
-    path('flux/', flux, name='flux'),
-    path('follow/', follow_user, name='follow'),
-    path("create_review/", create_review, name='create_review'),
+    path("follow/<str:username>/", follow_user, name="follow"),
+    path("flux/", flux, name="flux"),
+    path("create_review/", create_review, name="create_review"),
     path("create_new_review/", create_new_review, name="create_new_review"),
-    path('delete_ticket/<int:ticket_id>/', delete_ticket, name='delete_ticket'),
-    
-
-    
+    path("delete_ticket/<int:ticket_id>/", delete_ticket, name="delete_ticket"),
 ]
 
 if settings.DEBUG:
