@@ -5,3 +5,4 @@ statics/images
 *.jpg
 *.JPG
 static/*
+.vscode/launch.json

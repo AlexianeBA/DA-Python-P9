@@ -17,17 +17,19 @@
       </div>
     </nav>
 
-    <form class="d-flex" method="post" action="{% url 'flux' %}">
+    <form class="d-flex" method="post" action="{% url 'login' %}">
       {% csrf_token %}
       <input
         class="form-control me-2"
         type="text"
+        id="username"
         name="username"
         placeholder="Username"
       />
       <input
         class="form-control me-2"
         type="password"
+        id="password"
         name="password"
         placeholder="Password"
       />

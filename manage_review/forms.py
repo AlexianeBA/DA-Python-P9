@@ -5,11 +5,11 @@ from .models import Ticket, Review
 
 class TicketForm(forms.ModelForm):
     edit_ticket = forms.BooleanField(widget=forms.HiddenInput, initial=True)
-    title = forms.CharField(label="Titre du ticket")
     
     class Meta:
         model = Ticket
         fields = ['title', 'content', 'image']
+        labels = { 'title': "Titre du ticket",}
         
 class DeleteTicketForm(forms.Form):
     delete_ticket = forms.BooleanField(widget=forms.HiddenInput, initial=True)

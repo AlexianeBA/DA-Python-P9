@@ -3,13 +3,12 @@ from .forms import TicketForm, DeleteTicketForm, ReviewForm, NewReviewForm
 from .models import Ticket, Review
 from itertools import chain
 from operator import attrgetter
-
-
-
-# Create your views here.
+from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 
+# Create your views here.
 
+@login_required
 def creation_ticket(request):
     context = {}
     if request.method == "POST":
@@ -38,6 +37,7 @@ def flux(request):
     reviews = Review.objects.all().order_by('-time_created')
     print(tickets)
     print(reviews)
+    print(request)
     return render(request, "flux.html", {'tickets': tickets, 'reviews': reviews})
 
 def edit_ticket(request, ticket_id):

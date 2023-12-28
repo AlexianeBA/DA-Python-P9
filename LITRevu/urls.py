@@ -22,19 +22,20 @@ from manage_user.views import (
     home_view,
     login_page,
     signup_page,
-    logout,
     change_password,
     follow_user,
-    unfollow_user
+    unfollow_user,
+    signout
 )
 from manage_review.views import creation_ticket, edit_ticket, ticket_list, flux, create_review, create_new_review, delete_ticket
+
 
 urlpatterns = [
     path("admin/", admin.site.urls),
     path("", home_view, name="LITRevu"),
     path("login/", login_page, name="login"),
     path("signup/", signup_page, name="signup"),
-    path("logout/", logout, name="logout"),
+    path("signout/", signout, name="signout"),
     path("change_password", change_password, name="change_password"),
     path("creation_ticket/", creation_ticket, name="creation_ticket"),
     path("ticket_list/", ticket_list, name="ticket_list"),
@@ -46,6 +47,7 @@ urlpatterns = [
     path("create_review/", create_review, name='create_review'),
     path("create_new_review/", create_new_review, name="create_new_review"),
     path('delete_ticket/<int:ticket_id>/', delete_ticket, name='delete_ticket'),
+    
 
     
 ]
