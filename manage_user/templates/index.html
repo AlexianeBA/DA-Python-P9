@@ -5,50 +5,58 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link
       rel="stylesheet"
-      href="https://www.markuptag.com/bootstrap/5/css/bootstrap.min.css"
+      href="https://unpkg.com/tailwindcss@2.2.19/dist/tailwind.min.css"
     />
     <title>LITRevu</title>
   </head>
-  <body>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-      <div class="container-fluid">
+  <body class="m-5 bg-pink-50">
+    <nav class="bg-red-100 p-3 rounded m-0">
+      <div class="flex flex-row justify-center space-x-14 mt-2 mb-5">
         {% load static %}
-        <img src="static/images/logo_litrevu.jpg" alt="My image" />
+        <img
+          class="h-14"
+          src="static/images/logo_litrevu.jpg"
+          alt="Logo LITRevu"
+        />
+        <h1 class="mt-2">LITRevu</h1>
       </div>
     </nav>
-
-    <form class="d-flex" method="post" action="{% url 'login' %}">
-      {% csrf_token %}
-      <input
-        class="form-control me-2"
-        type="text"
-        id="username"
-        name="username"
-        placeholder="Username"
-      />
-      <input
-        class="form-control me-2"
-        type="password"
-        id="password"
-        name="password"
-        placeholder="Password"
-      />
-      <button type="submit">Connexion</button>
-    </form>
-
+    <div class="flex flex-row pt-6 justify-between">
+      <p class="flex flex-col">
+        Inscrivez-vous maintenant
+        <a href="{% url 'signup' %}">S'inscrire</a>
+      </p>
+      <form class="flex flex-col" method="post" action="{% url 'login' %}">
+        {% csrf_token %}
+        <h1>Connectez-vous</h1>
+        <input
+          class="mt4 w-36 border-2 border-black rounded"
+          type="text"
+          id="username"
+          name="username"
+          placeholder="Nom d'utilisateur"
+        />
+        <p class="text-xs">
+          Mot de passe oublié?
+          <a href="{% url 'change_password' %}">Cliquez ici</a>
+        </p>
+        <input
+          class="mt-4 w-36 border-2 border-black rounded"
+          type="password"
+          id="password"
+          name="password"
+          placeholder="Mot de passe"
+        />
+        <button
+          class="rounded border-black border-2 w-28 mt-4 ml-5"
+          type="submit"
+        >
+          Se connecter
+        </button>
+      </form>
+    </div>
     {% if error_message %}
     <p>{{ error_message }}</p>
     {% endif %}
-
-    <p>
-      Mot de passe oublié? <a href="{% url 'change_password' %}">Cliquez ici</a>
-    </p>
-    <p>
-      Pas encore membre?
-      <a href="{% url 'signup' %}">Inscrivez-vous maintenant !</a>
-    </p>
-
-    <!-- Bootstrap JS -->
-    <script src="https://www.markuptag.com/bootstrap/5/js/bootstrap.bundle.min.js"></script>
   </body>
 </html>
