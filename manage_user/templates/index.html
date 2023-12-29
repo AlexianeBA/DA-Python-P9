@@ -9,7 +9,7 @@
     />
     <title>LITRevu</title>
   </head>
-  <body class="m-5 bg-pink-50">
+  <body class="m-6 bg-pink-50">
     <nav class="bg-red-100 p-3 rounded m-0">
       <div class="flex flex-row justify-center space-x-14 mt-2 mb-5">
         {% load static %}
@@ -21,7 +21,7 @@
         <h1 class="mt-2">LITRevu</h1>
       </div>
     </nav>
-    <div class="flex flex-row pt-6 justify-between">
+    <div class="flex flex-row pt-6 justify-between m-9 mx-96">
       <p class="flex flex-col">
         Inscrivez-vous maintenant
         <a href="{% url 'signup' %}">S'inscrire</a>
@@ -30,7 +30,7 @@
         {% csrf_token %}
         <h1>Connectez-vous</h1>
         <input
-          class="mt4 w-36 border-2 border-black rounded"
+          class="w-38 border-2 border-black rounded"
           type="text"
           id="username"
           name="username"
@@ -41,14 +41,14 @@
           <a href="{% url 'change_password' %}">Cliquez ici</a>
         </p>
         <input
-          class="mt-4 w-36 border-2 border-black rounded"
+          class="mt-4 w-38 border-2 border-black rounded"
           type="password"
           id="password"
           name="password"
           placeholder="Mot de passe"
         />
         <button
-          class="rounded border-black border-2 w-28 mt-4 ml-5"
+          class="rounded border-black border-2 w-28 mt-4 ml-20"
           type="submit"
         >
           Se connecter
