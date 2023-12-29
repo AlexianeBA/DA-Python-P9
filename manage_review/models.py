@@ -15,7 +15,7 @@ class Ticket(models.Model):
     )
     title = models.CharField(max_length=200, default="")
     content = models.TextField(default="")
-    image = models.ImageField(upload_to=STATIC_URL + "/images/", default="")
+    image = models.ImageField(upload_to="images/", null=True, blank=True)
     created_at = models.DateTimeField(default=timezone.now)
 
     def __str__(self):
@@ -32,3 +32,4 @@ class Review(models.Model):
     body = models.CharField(max_length=8192, blank=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     time_created = models.DateTimeField(default=timezone.now)
+    image = models.ImageField(upload_to="images/", null=True, blank=True)

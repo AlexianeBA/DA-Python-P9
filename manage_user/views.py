@@ -6,7 +6,7 @@ from django.contrib.auth.forms import UserCreationForm
 from .forms import CustomPasswordChangeForm
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-from .models import User
+from .models import User, UserFollows
 from django.contrib.auth import authenticate, login
 
 from .forms import SignUpForm, SignInForm, CustomPasswordChangeForm, FollowForm
@@ -70,19 +70,54 @@ def change_password(request):
     return render(request, "change_password.html", {"form": form})
 
 
-def follow_page(request):
-    if request.user.is_authenticated:
-        if request.method == "POST":
-            current_user_follow_page = request.user
-            action = request.POST["follow"]
-            if action == "unfollow":
-                current_user_follow_page.followed_by.remove(follow_page)
-            else:
-                current_user_follow_page.follows.add(follow_page)
-            current_user_follow_page.save()
-        else:
-            return render(request, "follow_page.html")
+@login_required
+def follow_users(request):
+    followings = UserFollows.objects.filter(user=request.user).values_list(
+        "followed_user__username", flat=True
+    )
+    followers = UserFollows.objects.filter(followed_user=request.user).values_list(
+        "user__username", flat=True
+    )
+    context = {
+        "followings": followings,
+        "followers": followers,
+    }
+    if request.method == "POST":
+        query = request.POST.get("search_query")
+        users = User.objects.filter(username__icontains=query).exclude(
+            username=request.user.username
+        )
+        context["users"] = users
+        context["query"] = query
 
-    else:
-        messages.INFO(request, ("You must be logged in"))
-    return request("flux")
+    return render(request, "follow_users.html", context=context)
+
+
+@login_required
+def follow_unfollow(request, action, username):
+    user_to_follow_unfollow = User.objects.get(username=username)
+
+    if action == "follow":
+        UserFollows.objects.get_or_create(
+            user=request.user, followed_user=user_to_follow_unfollow
+        )
+        messages.success(request, f"Vous suivez maintenant {username}.")
+    elif action == "unfollow":
+        UserFollows.objects.filter(
+            user=request.user, followed_user=user_to_follow_unfollow
+        ).delete()
+        messages.success(request, f"Vous ne suivez plus {username}.")
+
+    return redirect("follow_users")
+
+
+@login_required
+def following(request):
+    followings = UserFollows.objects.filter(user=request.user)
+    return render(request, "following.html", {"followings": followings})
+
+
+@login_required
+def followers(request):
+    followers = UserFollows.objects.filter(followed_user=request.user)
+    return render(request, "followers.html", {"followers": followers})

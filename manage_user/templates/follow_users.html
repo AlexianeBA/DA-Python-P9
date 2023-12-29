@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://www.markuptag.com/bootstrap/5/css/bootstrap.min.css"
+    />
+    <title>Suivre d'autres utilisateurs</title>
+  </head>
+  <body>
+    <h1>Suivre d'autres utilisateurs</h1>
+
+    <form method="post" action="{% url 'follow_users' %}">
+      {% csrf_token %}
+      <label for="search_query">Rechercher un utilisateur:</label>
+      <input
+        type="text"
+        name="search_query"
+        id="search_query"
+        value="{{ query }}"
+      />
+      <button type="submit">Envoyer</button>
+    </form>
+
+    <h2>Résultats de recherche</h2>
+    {% for user in users %}
+    <p>
+      {{ user.username }} {% if user.username in followings %}
+      <a href="{% url 'follow_unfollow' 'unfollow' user.username %}"
+        >Se désabonner</a
+      >
+      {% else %}
+      <a href="{% url 'follow_unfollow' 'follow' user.username %}">Suivre</a>
+      {% endif %}
+    </p>
+    {% endfor %}
+
+    <h2>Abonnements</h2>
+    {% for following in followings %}
+    <p>{{ following }}</p>
+    {% endfor %}
+
+    <h2>Abonnés</h2>
+    {% for follower in followers %}
+    <p>{{ follower }}</p>
+    {% endfor %}
+  </body>
+</html>

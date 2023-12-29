@@ -4,7 +4,6 @@ from django.contrib.auth.models import User
 from django.contrib.auth.models import AbstractUser
 
 
-
 # Create your models here.
 class UserFollows(models.Model):
     user = models.ForeignKey(
@@ -22,6 +21,3 @@ class UserFollows(models.Model):
 
     def __str__(self):
         return f"{self.user} suit {self.followed_user}"
-    
-    
-

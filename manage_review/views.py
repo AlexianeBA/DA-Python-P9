@@ -91,7 +91,7 @@ def create_new_review(request):
     context = {}
 
     if request.method == "POST":
-        form = NewReviewForm(request.POST)
+        form = NewReviewForm(request.POST, request.FILES)
         if form.is_valid():
             review_instance = form.save(commit=False)
             user = request.user
