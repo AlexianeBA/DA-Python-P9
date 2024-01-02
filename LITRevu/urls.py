@@ -37,6 +37,8 @@ from manage_review.views import (
     create_review,
     create_new_review,
     delete_ticket,
+    edit_review,
+    delete_review,
 )
 
 
@@ -50,10 +52,12 @@ urlpatterns = [
     path("creation_ticket/", creation_ticket, name="creation_ticket"),
     path("ticket_list/", ticket_list, name="ticket_list"),
     path("edit_ticket/<int:ticket_id>/", edit_ticket, name="edit_ticket"),
+    path("edit_review/<int:review_id>/", edit_review, name="edit_review"),
     path("flux/", flux, name="flux"),
     path("create_review/", create_review, name="create_review"),
     path("create_new_review/", create_new_review, name="create_new_review"),
     path("delete_ticket/<int:ticket_id>/", delete_ticket, name="delete_ticket"),
+    path("delete_review/<int:review_id>/", delete_review, name="delete_review"),
     path("follow_users/", follow_users, name="follow_users"),
     path(
         "follow_unfollow/<str:action>/<str:username>/",

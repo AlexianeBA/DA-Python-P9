@@ -17,7 +17,12 @@ class DeleteTicketForm(forms.Form):
     delete_ticket = forms.BooleanField(widget=forms.HiddenInput, initial=True)
 
 
+class DeleteReviewForm(forms.Form):
+    delete_review = forms.BooleanField(widget=forms.HiddenInput, initial=True)
+
+
 class ReviewForm(forms.ModelForm):
+    edit_review = forms.BooleanField(widget=forms.HiddenInput, initial=True)
     headline = forms.CharField(label="Titre")
     rating = forms.IntegerField(label="Note", min_value=1, max_value=5)
     body = forms.CharField(label="Commentaire")
