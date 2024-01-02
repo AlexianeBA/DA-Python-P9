@@ -1,5 +1,11 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from .forms import TicketForm, DeleteTicketForm, ReviewForm, NewReviewForm
+from .forms import (
+    TicketForm,
+    DeleteTicketForm,
+    ReviewForm,
+    NewReviewForm,
+    DeleteReviewForm,
+)
 from .models import Ticket, Review
 from itertools import chain
 from operator import attrgetter
@@ -68,16 +74,16 @@ def edit_ticket(request, ticket_id):
 
 
 def edit_review(request, review_id):
-    review = get_object_or_404(Ticket, id=review_id)
-    edit_form = TicketForm(instance=review)
-    delete_form = DeleteTicketForm()
+    review = get_object_or_404(Review, id=review_id)
+    edit_form = ReviewForm(instance=review)
+    delete_form = DeleteReviewForm()
     if request.method == "POST":
         edit_form = TicketForm(request.POST, instance=review)
         if edit_form.is_valid():
             edit_form.save()
             return redirect("")
         if "delete_review" in request.POST:
-            delete_form = DeleteTicketForm(request.POST)
+            delete_form = DeleteReviewForm(request.POST)
             if delete_form.is_valid():
                 review.delete()
                 return redirect("login")

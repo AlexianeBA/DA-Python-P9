@@ -3,13 +3,15 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Delete review</title>
+    <title>Supprimer une critique</title>
   </head>
   <body>
-    <h2>Are you sure you want to delete "{{ ticket.title }}"?</h2>
+    <h2>
+      Etes-vous sûre de vouloir supprimer la critique "{{ review.title }}"?
+    </h2>
     <form method="post">
       {% csrf_token %}
-      <button type="submit">Yes, delete</button>
+      <button type="submit">Oui, Supprimer</button>
     </form>
   </body>
 </html>

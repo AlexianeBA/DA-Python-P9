@@ -3,18 +3,18 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>tickets</title>
+    <title>Modifier la critique</title>
   </head>
   <body>
     <div>
       {% block content %}
-      <h2>Modifier le ticket</h2>
+      <h2>Modifier la critique</h2>
       <form method="post">
         {{ edit_form.as_p }} {% csrf_token %}
         <button type="submit">Sauvegarder</button>
       </form>
       <hr />
-      <h3>Supprimer le ticket ?</h3>
+      <h3>Supprimer la critique ?</h3>
       <form method="post">
         {{ delete_form }} {% csrf_token %}
         <button type="submit">Supprimer</button>
