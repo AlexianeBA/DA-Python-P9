@@ -31,7 +31,7 @@
                 <a class="" href="{% url 'ticket_list' %}">Posts</a>
               </li>
               <li class="">
-                <a class="" href="{% url 'follow_users' %}">Abonnements</a>
+                <a class="nav-link text-red-300" aria-current="page" href="{% url 'follow_users' %}">Abonnements</a>
               </li>
               <li class="">
                 <a class="" href="{% url 'signout' %}">Se déconnecter</a>
@@ -56,8 +56,9 @@
       <button type="submit" class="rounded-md border-black border-2 p-1">Envoyer</button>
     </form>
 
-    <h2>Résultats de recherche</h2>
+    
     {% for user in users %}
+    <h2>Résultats de recherche</h2>
     <p>
       {{ user.username }} {% if user.username in followings %}
       <a href="{% url 'follow_unfollow' 'unfollow' user.username %}" class="rounded-md border-black border-2 p-1">Se désabonner</a>

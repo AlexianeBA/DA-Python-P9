@@ -15,7 +15,7 @@
       
       
       
-      <div class="flex flex-row justify-center space-x-14 mt-2 mb-5">
+      <div class="flex flex-row justify-center space-x-14 mt-3 mb-2">
         {% load static %}
         <img
           class="h-14"
@@ -25,7 +25,7 @@
         <h1 class="mt-2">LITRevu</h1>
             <ul class="flex flex-row space-x-14 mt-2 mb-5">
               <li class="">
-                <a class="" href="{% url 'flux' %}">Flux</a>
+                <a class="nav-link text-red-300" aria-current="page" href="{% url 'flux' %}">Flux</a>
               </li>
               <li class="">
                 <a class="" href="{% url 'ticket_list' %}">Posts</a>
@@ -41,8 +41,8 @@
         </div>
       
     </nav>
-    <div class="flex justify-center space-x-8 ">
-      <a href="{% url 'creation_ticket' %}" class="rounded-md border-black border-2 p-1">Demander une critique</a>
+    <div class="flex justify-center space-x-8 mt-2">
+      <a href="{% url 'creation_ticket' %}" class="rounded-md border-black border-2 p-1 ">Demander une critique</a>
       <a href="{% url 'create_new_review' %}" class="rounded-md border-black border-2 p-1">Créer une critique</a>
     </div>
   <section class="p-3 mb-3">
@@ -60,7 +60,7 @@
       {{ ticket.created_at }} {% if ticket.image %}
       <img src="{{ ticket.image.url }}" alt="{{ ticket.title }} image" class="h-4"/>
       {% endif %}
-      <a href="{% url 'create_review' %}">Ajouter une critique</a>
+      <a href="{% url 'create_review' %}" class="rounded-md border-black border-2 p-1">Ajouter une critique</a>
     </div>
     {% endif %} {% empty %}
     <p>Aucun ticket disponible.</p>
