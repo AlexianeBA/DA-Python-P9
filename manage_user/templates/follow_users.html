@@ -5,12 +5,43 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link
       rel="stylesheet"
-      href="https://www.markuptag.com/bootstrap/5/css/bootstrap.min.css"
+      href="https://unpkg.com/tailwindcss@2.2.19/dist/tailwind.min.css"
     />
     <title>Suivre d'autres utilisateurs</title>
   </head>
-  <body>
-    <h1>Suivre d'autres utilisateurs</h1>
+  <body class="m-6 bg-pink-50">
+    <nav class="bg-red-100 p-3 rounded m-0">
+      
+      
+    
+    
+      <div class="flex flex-row justify-center space-x-14 mt-2 mb-5">
+        {% load static %}
+        <img
+          class="h-14"
+          src="static/images/logo_litrevu.jpg"
+          alt="Logo LITRevu"
+        />
+        <h1 class="mt-2">LITRevu</h1>
+            <ul class="flex flex-row space-x-14 mt-2 mb-5">
+              <li class="">
+                <a class="" href="{% url 'flux' %}">Flux</a>
+              </li>
+              <li class="">
+                <a class="" href="{% url 'ticket_list' %}">Posts</a>
+              </li>
+              <li class="">
+                <a class="" href="{% url 'follow_users' %}">Abonnements</a>
+              </li>
+              <li class="">
+                <a class="" href="{% url 'signout' %}">Se déconnecter</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      
+    </nav>
+    <h1 class="flex justify-center text-xl">Suivre d'autres utilisateurs</h1>
 
     <form method="post" action="{% url 'follow_users' %}">
       {% csrf_token %}
@@ -20,31 +51,38 @@
         name="search_query"
         id="search_query"
         value="{{ query }}"
+        class="rounded-md border-black border-2 p-1"
       />
-      <button type="submit">Envoyer</button>
+      <button type="submit" class="rounded-md border-black border-2 p-1">Envoyer</button>
     </form>
 
     <h2>Résultats de recherche</h2>
     {% for user in users %}
     <p>
       {{ user.username }} {% if user.username in followings %}
-      <a href="{% url 'follow_unfollow' 'unfollow' user.username %}"
-        >Se désabonner</a
-      >
+      <a href="{% url 'follow_unfollow' 'unfollow' user.username %}" class="rounded-md border-black border-2 p-1">Se désabonner</a>
       {% else %}
-      <a href="{% url 'follow_unfollow' 'follow' user.username %}">Suivre</a>
+      <a href="{% url 'follow_unfollow' 'follow' user.username %}" class="rounded-md border-black border-2 p-1">Suivre</a>
       {% endif %}
     </p>
-    {% endfor %}
-
-    <h2>Abonnements</h2>
-    {% for following in followings %}
-    <p>{{ following }}</p>
-    {% endfor %}
-
-    <h2>Abonnés</h2>
-    {% for follower in followers %}
-    <p>{{ follower }}</p>
-    {% endfor %}
+  {% endfor %}
+  
+  <h2 class="flex justify-center text-xl">Abonnements</h2>
+  {% for following_username in followings %}
+    <p>{{ following_username }}
+      <a href="{% url 'follow_unfollow' 'unfollow' following_username %}" class="rounded-md border-black border-2 p-1">Se désabonner</a>
+    </p>
+  {% endfor %}
+  
+  <h2 class="flex justify-center text-xl">Abonnés</h2>
+  {% for follower_username in followers %}
+    <p>{{ follower_username }}
+      {% if follower_username in followings %}
+        <a href="{% url 'follow_unfollow' 'unfollow' follower_username %}" class="rounded-md border-black border-2 p-1">Se désabonner</a>
+      {% else %}
+        <a href="{% url 'follow_unfollow' 'follow' follower_username %}" class="rounded-md border-black border-2 p-1">Suivre</a>
+      {% endif %}
+    </p>
+  {% endfor %}
   </body>
 </html>

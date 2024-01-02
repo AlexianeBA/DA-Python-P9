@@ -3,61 +3,62 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
-    <title>LITRevu</title>
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/tailwindcss@2.2.19/dist/tailwind.min.css"
+    />
+    <title>LITRevu-Accueil</title>
   </head>
-  <body>
-    <nav class="">
-      <div class="">
-        <a class="" href="#">
-          <img src="static/images/logo_litrevu.jpg" alt="Logo LITRevu"
-        /></a>
-
-        <button
-          class=""
-          type="button"
-          data-bs-toggle="collapse"
-          data-bs-target="#mob-navbar"
-          aria-label="Toggle"
-        >
-          <span class=""></span>
-        </button>
-        <div class="" id="">
-          <ul class="">
-            <li class="">
-              <a class="" href="{% url 'flux' %}">Flux</a>
-            </li>
-            <li class="">
-              <a class="" href="{% url 'ticket_list' %}">Posts</a>
-            </li>
-            <li class="">
-              <a class="" href="{% url 'follow_users' %}">Abonnements</a>
-            </li>
-            <li class="">
-              <a class="" href="{% url 'signout' %}">Se déconnecter</a>
-            </li>
-          </ul>
+  <body class="m-6 bg-pink-50">
+    <nav class="bg-red-100 p-3 rounded m-0">
+      
+      
+      
+      
+      <div class="flex flex-row justify-center space-x-14 mt-2 mb-5">
+        {% load static %}
+        <img
+          class="h-14"
+          src="static/images/logo_litrevu.jpg"
+          alt="Logo LITRevu"
+        />
+        <h1 class="mt-2">LITRevu</h1>
+            <ul class="flex flex-row space-x-14 mt-2 mb-5">
+              <li class="">
+                <a class="" href="{% url 'flux' %}">Flux</a>
+              </li>
+              <li class="">
+                <a class="" href="{% url 'ticket_list' %}">Posts</a>
+              </li>
+              <li class="">
+                <a class="" href="{% url 'follow_users' %}">Abonnements</a>
+              </li>
+              <li class="">
+                <a class="" href="{% url 'signout' %}">Se déconnecter</a>
+              </li>
+            </ul>
+          </div>
         </div>
-      </div>
+      
     </nav>
-    <div class="">
-      <a href="{% url 'creation_ticket' %}">Demander une critique</a>
-      <a href="{% url 'create_new_review' %}">Créer une critique</a>
+    <div class="flex justify-center space-x-8 ">
+      <a href="{% url 'creation_ticket' %}" class="rounded-md border-black border-2 p-1">Demander une critique</a>
+      <a href="{% url 'create_new_review' %}" class="rounded-md border-black border-2 p-1">Créer une critique</a>
     </div>
-
+  <section class="p-3 mb-3">
     {% for ticket in tickets %} {% if ticket.user == user %}
-    <div>
+    <div class="mb-3">
       Vous avez publié le ticket "{{ ticket.title }}" le {{ ticket.created_at
       }}{% if ticket.image %}
-      <img src="{{ ticket.image.url }}" alt="{{ ticket.title }} image" />
+      <img src="{{ ticket.image.url }}" alt="{{ ticket.title }} image" class="h-4 mb-3"/>
       {% endif %}
-      <a href="{% url 'create_review' %}">Ajouter une critique</a>
+      <a href="{% url 'create_review' %}" class="rounded-md border-black border-2 p-1">Ajouter une critique</a>
     </div>
     {% else %}
     <div>
       {{ ticket.user.username }} a ajouté un ticket au nom de "{{ ticket }}" le
       {{ ticket.created_at }} {% if ticket.image %}
-      <img src="{{ ticket.image.url }}" alt="{{ ticket.title }} image" />
+      <img src="{{ ticket.image.url }}" alt="{{ ticket.title }} image" class="h-4"/>
       {% endif %}
       <a href="{% url 'create_review' %}">Ajouter une critique</a>
     </div>
@@ -73,11 +74,12 @@
     <div>
       {% if review.ticket %} Nouvelle critique pour le ticket "{{
       review.ticket.title }}" ajoutée par {{ review.user.username }}: {% else %}
-      Nouvelle critique de {{ review.user.username }}: {% endif %} Critique: {{
+      Nouvelle critique de {{ review.user.username }} {% endif %} Critique: {{
       review.body }}, Note: {{ review.rating }}
     </div>
     {% endif %} {% empty %}
     <p>Aucune critique disponible.</p>
     {% endfor %}
+  </section>
   </body>
 </html>
