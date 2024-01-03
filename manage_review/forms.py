@@ -8,9 +8,7 @@ class TicketForm(forms.ModelForm):
     class Meta:
         model = Ticket
         fields = ["title", "content", "image"]
-        labels = {
-            "title": "Titre du ticket",
-        }
+        labels = {"title": "Titre du ticket", "content": "Description"}
 
 
 class DeleteTicketForm(forms.Form):

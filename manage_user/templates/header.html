@@ -1,0 +1,28 @@
+<nav class="bg-red-100 p-3 rounded m-0">
+  
+    <div class="flex flex-row justify-center space-x-14 mt-3 mb-2">
+      {% load static %}
+      <img
+        class="h-14"
+        src="static/images/logo_litrevu.jpg"
+        alt="Logo LITRevu"
+      />
+      <h1 class="mt-2">LITRevu</h1>
+          <ul class="flex flex-row space-x-14 mt-2 mb-5">
+            <li class="">
+              <a href="{% url 'flux' %}">Flux</a>
+            </li>
+            <li class="">
+              <a class="" href="{% url 'ticket_list' %}">Posts</a>
+            </li>
+            <li class="">
+              <a class="" href="{% url 'follow_users' %}">Abonnements</a>
+            </li>
+            <li class="">
+              <a class="" href="{% url 'signout' %}">Se déconnecter</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    
+  </nav>

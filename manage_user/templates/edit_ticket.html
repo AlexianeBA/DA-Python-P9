@@ -4,21 +4,48 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>tickets</title>
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/tailwindcss@2.2.19/dist/tailwind.min.css"
+    />
   </head>
-  <body>
+  <body class="m-6 bg-pink-50">
+    <nav class="bg-red-100 p-3 rounded m-0">
+  
+      <div class="flex flex-row justify-center space-x-14 mt-3 mb-2">
+        {% load static %}
+        <img
+          class="h-14"
+          src="static/images/logo_litrevu.jpg"
+          alt="Logo LITRevu"
+        />
+        <h1 class="mt-2">LITRevu</h1>
+            <ul class="flex flex-row space-x-14 mt-2 mb-5">
+              <li class="">
+                <a href="{% url 'flux' %}">Flux</a>
+              </li>
+              <li class="">
+                <a class="" href="{% url 'ticket_list' %}">Posts</a>
+              </li>
+              <li class="">
+                <a class="" href="{% url 'follow_users' %}">Abonnements</a>
+              </li>
+              <li class="">
+                <a class="" href="{% url 'signout' %}">Se déconnecter</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      
+    </nav>
     <div>
       {% block content %}
-      <h2>Modifier le ticket</h2>
-      <form method="post">
+      <h2 class="flex justify-center text-xl">Modifier le ticket</h2>
+      <form method="post" class="ml-96 mt-20">
         {{ edit_form.as_p }} {% csrf_token %}
-        <button type="submit">Sauvegarder</button>
+        <button type="submit" class="mt-4 w-38 border-2 border-black rounded">Sauvegarder</button>
       </form>
-      <hr />
-      <h3>Supprimer le ticket ?</h3>
-      <form method="post">
-        {{ delete_form }} {% csrf_token %}
-        <button type="submit">Supprimer</button>
-      </form>
+      
       {% endblock content %}
     </div>
   </body>

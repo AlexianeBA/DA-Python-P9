@@ -24,7 +24,7 @@
     <div class="flex flex-row pt-6 justify-between m-9 mx-96">
       <p class="flex flex-col">
         Inscrivez-vous maintenant
-        <a href="{% url 'signup' %}">S'inscrire</a>
+        <a href="{% url 'signup' %}" class="rounded border-black border-2 w-20 mt-4 flex justify-center">S'inscrire</a>
       </p>
       <form class="flex flex-col" method="post" action="{% url 'login' %}">
         {% csrf_token %}
