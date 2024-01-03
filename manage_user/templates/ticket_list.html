@@ -1,46 +1,5 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link
-      rel="stylesheet"
-      href="https://unpkg.com/tailwindcss@2.2.19/dist/tailwind.min.css"
-    />
-    <title>Posts</title>
-  </head>
-  <body class="m-6 bg-pink-50">
-    <nav class="bg-red-100 p-3 rounded m-0">
-      
-      
-    
-    
-    <div class="flex flex-row justify-center space-x-14 mt-2 mb-5">
-      {% load static %}
-      <img
-        class="h-14"
-        src="static/images/logo_litrevu.jpg"
-        alt="Logo LITRevu"
-      />
-      <h1 class="mt-2">LITRevu</h1>
-          <ul class="flex flex-row space-x-14 mt-2 mb-5">
-            <li class="">
-              <a class="" href="{% url 'flux' %}">Flux</a>
-            </li>
-            <li class="">
-              <a class="nav-link text-red-300" aria-current="page" href="{% url 'ticket_list' %}">Posts</a>
-            </li>
-            <li class="">
-              <a class="" href="{% url 'follow_users' %}">Abonnements</a>
-            </li>
-            <li class="">
-              <a class="" href="{% url 'signout' %}">Se déconnecter</a>
-            </li>
-          </ul>
-        </div>
-      </div>
-    
-  </nav>
+{% extends "header.html" %}
+    {% block content %}
     {% load static %} {% if user.is_authenticated %}
     <h1 class="flex justify-center text-xl">Vos posts</h1>
     {% for ticket in tickets %}
@@ -64,6 +23,7 @@
     {% endfor %} {% else %}
     <p>Connectez-vous pour voir vos tickets.</p>
     {% endif %}
+    {% endblock %}
   </body>
-  <script src="https://www.markuptag.com/bootstrap/5/js/bootstrap.bundle.min.js"></script>
+ 
 </html>

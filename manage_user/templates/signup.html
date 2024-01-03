@@ -1,26 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link
-      rel="stylesheet"
-      href="https://unpkg.com/tailwindcss@2.2.19/dist/tailwind.min.css"
-    />
-    <title>Inscription</title>
-  </head>
-  <body class="m-6 bg-pink-50">
-    <nav class="bg-red-100 p-3 rounded m-0">
-      <div class="flex flex-row justify-center space-x-14 mt-2 mb-5">
-        {% load static %}
-        <img
-          class="h-14"
-          src="static/images/logo_litrevu.jpg"
-          alt="Logo LITRevu"
-        />
-        <a href="{% url 'LITRevu' %}" <h1 class="mt-2 nav-link text-red-300" aria-current="page">LITRevu</h1></a>
-      </div>
-    </nav>
+{% extends "header.html" %}
     {% block content %}
     <h1 class="flex justify-center text-xl">Inscrivez-vous</h1>
     <form method="post" class="flex flex-col mt-6 ">
