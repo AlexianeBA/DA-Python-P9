@@ -94,8 +94,10 @@ def edit_review(request, review_id):
     return render(request, "edit_review.html", context=context)
 
 
-def create_review(request):
+def create_review(request, ticket_id=None):
     context = {}
+
+    ticket = get_object_or_404(Ticket, id=ticket_id) if ticket_id else None
 
     if request.method == "POST":
         form = ReviewForm(request.POST)
@@ -103,11 +105,15 @@ def create_review(request):
             review_instance = form.save(commit=False)
             user = request.user
             review_instance.user = user
+            if ticket:
+                review_instance.ticket = ticket
             review_instance.save()
             context["username"] = user.username
             return redirect("flux")
     else:
-        form = ReviewForm()
+        form_initial = {"ticket": ticket} if ticket else {}
+        form = ReviewForm(initial=form_initial)
+
     form.fields["ticket"].queryset = Ticket.objects.all()
 
     context["form"] = form

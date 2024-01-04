@@ -25,21 +25,25 @@ class ReviewForm(forms.ModelForm):
     rating = forms.IntegerField(label="Note", min_value=1, max_value=5)
     body = forms.CharField(label="Commentaire")
     ticket = forms.ModelChoiceField(
-        queryset=Ticket.objects.all(), label="Ticket", required=False
+        queryset=Ticket.objects.all(),
+        label="Ticket",
+        required=False,
+        widget=forms.HiddenInput(attrs={"disabled": "disabled"}),
     )
-    image = forms.ImageField(label="Image", required=False)
 
     class Meta:
         model = Review
-        fields = ["ticket", "headline", "rating", "body", "image"]
+        fields = ["ticket", "headline", "rating", "body"]
 
 
 class NewReviewForm(forms.ModelForm):
+    title = forms.CharField(label="Titre du ticket")
+    content = forms.CharField(label="Description")
+    ticket_image = forms.ImageField(label="Image du ticket", required=False)
     headline = forms.CharField(label="Titre")
     rating = forms.IntegerField(label="Note", min_value=1, max_value=5)
     body = forms.CharField(label="Commentaire")
-    image = forms.ImageField(label="Image", required=False)
 
     class Meta:
         model = Review
-        fields = ["headline", "rating", "body", "image"]
+        fields = ["title", "content", "ticket_image", "headline", "rating", "body"]
