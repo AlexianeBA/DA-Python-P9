@@ -18,6 +18,9 @@ class Ticket(models.Model):
     image = models.ImageField(upload_to="images/", null=True, blank=True)
     created_at = models.DateTimeField(default=timezone.now)
 
+    def formatted_created_at(self):
+        return self.created_at.strftime("%d-%m-%Y à %H:%M:%S")
+
     def __str__(self):
         return self.title
 
@@ -33,3 +36,6 @@ class Review(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     time_created = models.DateTimeField(default=timezone.now)
     image = models.ImageField(upload_to="images/", null=True, blank=True)
+
+    def formatted_created_at(self):
+        return self.time_created.strftime("%d-%m-%Y à %H:%M:%S")

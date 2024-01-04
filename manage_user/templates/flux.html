@@ -8,26 +8,30 @@
       {% for ticket in tickets %}
         <div class="mb-3 border border-gray-300 p-3 rounded">
           {% if ticket.user == user %}
-            <p>Vous avez publié le ticket "{{ ticket.title }}" le {{ ticket.created_at }}</p>
-            <a href="{% url 'edit_ticket' ticket.id %}" class="text-blue-500">Modifier</a>
-            <a href="{% url 'delete_ticket' ticket.id %}" class="text-red-500 ml-2">Supprimer</a>
+            <p>Vous avez publié le ticket "{{ ticket.title }}" le {{ ticket.formatted_created_at }}</p>
+          
           {% else %}
-            <p>{{ ticket.user.username }} a ajouté un ticket au nom de "{{ ticket.title }}" le {{ ticket.created_at }}</p>
+            <p>{{ ticket.user.username }} a ajouté un ticket au nom de "{{ ticket.title }}" le {{ ticket.formatted_created_at }}</p>
           {% endif %}
     
           {% if ticket.image %}
-            <img src="{{ ticket.image.url }}" alt="{{ ticket.title }} image" class="h-4 mb-3"/>
+            <img src="{{ ticket.image.url }}" alt="{{ ticket.title }} image" class="h-60 mb-3"/>
           {% endif %}
-    
+          {% if ticket.user == user %}
+            <div class="mb-3">
+            <a href="{% url 'edit_ticket' ticket.id %}" class="text-blue-500">Modifier</a>
+            <a href="{% url 'delete_ticket' ticket.id %}" class="text-red-500 ml-2">Supprimer</a>
+            </div>
+          {% endif %}
           <a href="{% url 'create_review' %}" class="rounded-md border-black border-2 p-1">Ajouter une critique</a>
     
           {% for review in reviews %}
             {% if review.ticket == ticket %}
               <div class="border border-blue-500 p-3 mt-3 rounded">
                 {% if review.user == user %}
-                  <p>Vous avez publié une critique pour le ticket "{{ review.ticket.title }}" ajouté par {{ review.user.username }}:</p>
+                  <p>Vous avez publié une critique pour le ticket "{{ review.ticket.title }}" le {{ review.formatted_created_at}}:</p>
                 {% else %}
-                  <p>Nouvelle critique pour le ticket "{{ review.ticket.title }}" ajoutée par {{ review.user.username }}:</p>
+                  <p>Nouvelle critique pour le ticket "{{ review.ticket.title }}" ajoutée par {{ review.user.username }}, le {{ review.formatted_created_at}}:</p>
                 {% endif %}
                 
                 <p>Critique : {{ review.body }}, Note: {{ review.rating }}</p>
@@ -52,7 +56,7 @@
             <a href="{% url 'edit_review' review.id %}" class="text-blue-500">Modifier</a>
             <a href="{% url 'delete_review' review.id %}" class="text-red-500 ml-2">Supprimer</a>
           </div>
-        {% elif review.ticket %}
+        {% elif review.ticket and review.user == None %}
           <div class="border border-yellow-500 p-3 rounded mt-3">
             <p>Nouvelle critique de {{ review.user.username }} pour le ticket "{{ review.ticket.title }}":</p>
             <p>Critique: {{ review.body }}, Note: {{ review.rating }}</p>
