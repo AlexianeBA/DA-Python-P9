@@ -1,4 +1,6 @@
+<title>Flux</title>
 {% extends "header_connection.html" %}
+
     {% block content %}
     <div class="flex justify-center space-x-8 mt-2">
       <a href="{% url 'creation_ticket' %}" class="rounded-md border-black border-2 p-1 ">Demander une critique</a>
@@ -19,8 +21,8 @@
           {% endif %}
           {% if ticket.user == user %}
             <div class="mb-3">
-            <a href="{% url 'edit_ticket' ticket.id %}" class="text-blue-500">Modifier</a>
-            <a href="{% url 'delete_ticket' ticket.id %}" class="text-red-500 ml-2">Supprimer</a>
+            <a href="{% url 'edit_ticket' ticket.id %}" class="text-blue-500 font-bold">Modifier</a>
+            <a href="{% url 'delete_ticket' ticket.id %}" class="text-red-500 ml-2 font-bold">Supprimer</a>
             </div>
           {% endif %}
           <a href="{% url 'create_review' ticket_id=ticket.id %}" class="rounded-md border-black border-2 p-1">Ajouter une critique</a>
@@ -37,8 +39,8 @@
                 <p>Critique : {{ review.body }}, Note: {{ review.rating }}</p>
     
                 {% if review.user == user %}
-                  <a href="{% url 'edit_review' review.id %}" class="text-blue-500">Modifier</a>
-                  <a href="{% url 'delete_review' review.id %}" class="text-red-500 ml-2">Supprimer</a>
+                  <a href="{% url 'edit_review' review.id %}" class="text-blue-500 font-bold">Modifier</a>
+                  <a href="{% url 'delete_review' review.id %}" class="text-red-500 ml-2 font-bold">Supprimer</a>
                 {% endif %}
               </div>
             {% endif %}
@@ -56,8 +58,8 @@
           {% if review.ticket %}
             <p>Ticket associé - Titre: {{ review.ticket.title }}, Description: {{ review.ticket.content }} Image: <img src="{{ review.ticket.image.url }}" alt="{{ ticket.title }} image" class="h-60 mb-3"/></p>
           {% endif %}
-          <a href="{% url 'edit_review' review.id %}" class="text-blue-500">Modifier</a>
-          <a href="{% url 'delete_review' review.id %}" class="text-red-500 ml-2">Supprimer</a>
+          <a href="{% url 'edit_review' review.id %}" class="text-blue-500 font-bold">Modifier</a>
+          <a href="{% url 'delete_review' review.id %}" class="text-red-500 ml-2 font-bold">Supprimer</a>
         </div>
         {% elif review.ticket %}
           <div class="border border-yellow-500 p-3 rounded mt-3">

@@ -7,6 +7,7 @@ from .forms import (
     DeleteReviewForm,
 )
 from .models import Ticket, Review
+from manage_user.models import UserFollows
 from itertools import chain
 from operator import attrgetter
 from django.contrib.auth.models import User
@@ -44,11 +45,16 @@ def ticket_list(request):
 
 
 def flux(request):
-    tickets = Ticket.objects.all().order_by("-created_at")
-    reviews = Review.objects.all().order_by("-time_created")
-    print(tickets)
-    print(reviews)
-    print(request)
+    following_users = UserFollows.objects.filter(user=request.user).values_list(
+        "followed_user", flat=True
+    )
+    tickets = Ticket.objects.filter(
+        user__in=[request.user] + list(following_users)
+    ).order_by("-created_at")
+    reviews = Review.objects.filter(
+        user__in=[request.user] + list(following_users)
+    ).order_by("-time_created")
+
     return render(request, "flux.html", {"tickets": tickets, "reviews": reviews})
 
 
