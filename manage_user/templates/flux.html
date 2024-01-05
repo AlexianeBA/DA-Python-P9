@@ -11,9 +11,11 @@
         <div class="mb-3 border border-gray-300 p-3 rounded">
           {% if ticket.user == user %}
             <p>Vous avez publié le ticket "{{ ticket.title }}" le {{ ticket.formatted_created_at }}</p>
+            <p>Commentaire: {{ ticket.content }}
           
           {% else %}
             <p>{{ ticket.user.username }} a ajouté un ticket au nom de "{{ ticket.title }}" le {{ ticket.formatted_created_at }}</p>
+            <p>Commentaire: {{ ticket.content }}</p>
           {% endif %}
     
           {% if ticket.image %}

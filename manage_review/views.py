@@ -66,12 +66,12 @@ def edit_ticket(request, ticket_id):
         edit_form = TicketForm(request.POST, instance=ticket)
         if edit_form.is_valid():
             edit_form.save()
-            return redirect("")
+            return redirect("flux")
         if "delete_ticket" in request.POST:
             delete_form = DeleteTicketForm(request.POST)
             if delete_form.is_valid():
                 ticket.delete()
-                return redirect("login")
+                return redirect("flux")
     context = {
         "edit_form": edit_form,
         "delete_form": delete_form,
