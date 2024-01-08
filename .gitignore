@@ -6,4 +6,3 @@ statics/images
 *.JPG
 static/*
 .vscode/launch.json
-README.md
