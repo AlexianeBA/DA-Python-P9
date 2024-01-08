@@ -16,10 +16,7 @@
           name="username"
           placeholder="Nom d'utilisateur"
         />
-        <p class="text-xs">
-          Mot de passe oublié?
-          <a href="{% url 'change_password' %}">Cliquez ici</a>
-        </p>
+        
         <input
           class="mt-4 w-38 border-2 border-black rounded"
           type="password"
@@ -27,6 +24,10 @@
           name="password"
           placeholder="Mot de passe"
         />
+        <p class="text-xs">
+          Mot de passe oublié?
+          <a href="{% url 'change_password' %}">Cliquez ici</a>
+        </p>
         <button
           class="rounded border-black border-2 w-28 mt-4 ml-20"
           type="submit"
