@@ -17,8 +17,11 @@
         </tr>
         {% endfor %} {% endfor %}
       </table>
-      
-      <button class="rounded border-black border-2 w-20 mt-4 flex justify-center" type="submit" >S'inscrire</button>
+      <div class="flex flex-row justify-center">
+        <a href="{% url 'LITRevu' %}" class="rounded border-black border-2 w-20 mt-4 flex justify-center mr-4">Retour</a>
+        <button class="rounded border-black border-2 w-20 mt-4 flex justify-center " type="submit" >S'inscrire</button>
+        
+      </div>
     </form>
     {% endblock %}
   </body>

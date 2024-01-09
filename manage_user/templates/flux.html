@@ -65,7 +65,7 @@
         </div>
         {% elif review.ticket %}
           <div class="border border-yellow-500 p-3 rounded mt-3">
-            <p>Nouvelle critique de {{ review.user.username }} pour le ticket "{{ review.ticket.title }}":</p>
+            <p>Nouvelle critique de {{ review.user.username }} pour le ticket "{{ review.ticket.title }}" ajoutée le {{ review.formatted_created_at }}:</p>
             <p>Ticket associé - Titre: {{ review.ticket.title }}, Description: {{ review.ticket.content }} Image: <img src="{{ review.ticket.image.url }}" alt="{{ ticket.title }} image" class="h-60 mb-3"/></p>
           </div>
         {% endif %}

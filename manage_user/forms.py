@@ -11,8 +11,10 @@ from .models import UserFollows
 
 class SignUpForm(UserCreationForm):
     username = forms.CharField(label="Nom d'utilisateur")
-    password1 = forms.CharField(label="Mot de passe")
-    password2 = forms.CharField(label="Confirmation de mot de passe")
+    password1 = forms.CharField(label="Mot de passe", widget=forms.PasswordInput)
+    password2 = forms.CharField(
+        label="Confirmation de mot de passe", widget=forms.PasswordInput
+    )
 
     class Meta(UserCreationForm.Meta):
         model = User
