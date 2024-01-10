@@ -53,25 +53,33 @@
       {% endfor %}
     
       {% for review in reviews %}
-        {% if review.user == user  %}
+      {% if review.user == user %}
         <div class="border border-green-500 p-3 rounded mt-3">
-          <p>Vous avez publié une critique :</p>
-          <p>Critique : {{ review.body }}, Note: {{ review.rating }}</p>
+          <p>Vous avez publié une nouvelle critique :</p>
+          <p>Critique : {{ review.body }} Note: {{ review.rating }}</p>
+          
           {% if review.ticket %}
+          
             <p>Ticket associé - Titre: {{ review.ticket.title }}, Description: {{ review.ticket.content }} Image: <img src="{{ review.ticket.image.url }}" alt="{{ ticket.title }} image" class="h-60 mb-3"/></p>
           {% endif %}
           <a href="{% url 'edit_review' review.id %}" class="text-blue-500 font-bold">Modifier</a>
           <a href="{% url 'delete_review' review.id %}" class="text-red-500 ml-2 font-bold">Supprimer</a>
         </div>
-        {% elif review.ticket %}
-          <div class="border border-yellow-500 p-3 rounded mt-3">
-            <p>Nouvelle critique de {{ review.user.username }} pour le ticket "{{ review.ticket.title }}" ajoutée le {{ review.formatted_created_at }}:</p>
-            <p>Ticket associé - Titre: {{ review.ticket.title }}, Description: {{ review.ticket.content }} Image: <img src="{{ review.ticket.image.url }}" alt="{{ ticket.title }} image" class="h-60 mb-3"/></p>
-          </div>
-        {% endif %}
-      {% empty %}
-        <p>Aucune critique disponible.</p>
+      {% endif %}
+    {% endfor %}
+    
+    <!-- Afficher les critiques des utilisateurs suivis -->
+    {% for followed_user in user.following.all %}
+      {% for followed_review in followed_user.reviews.all %}
+        <div class="border border-yellow-500 p-3 rounded mt-3">
+          <p>Nouvelle critique de {{ followed_user.username }} pour le ticket "{{ followed_review.ticket.title }}" ajoutée le {{ followed_review.formatted_created_at }}:</p>
+          <p>Ticket associé - Titre: {{ followed_review.ticket.title }}, Description: {{ followed_review.ticket.content }} Image: <img src="{{ followed_review.ticket.image.url }}" alt="{{ followed_review.ticket.title }} image" class="h-60 mb-3"/></p>
+        </div>
       {% endfor %}
+    {% empty %}
+      <p>Aucune critique disponible.</p>
+    {% endfor %}
+    
     </section>
     {% endblock %}
   </body>

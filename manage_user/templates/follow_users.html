@@ -17,17 +17,23 @@
       <button type="submit" class="rounded-md border-black border-2 p-1">Envoyer</button>
     </form>
 
-    {% for user in users %}
     <div class="ml-16">
       <h2 class="mb-2">Résultats de recherche: </h2>
-      <p class="mb-2">
-        {{ user.username }} {% if user.username in followings %}
-          <a href="{% url 'follow_unfollow' 'unfollow' user.username %}" class="rounded-md border-black border-2 p-1">Se désabonner</a>
-        {% else %}
-          <a href="{% url 'follow_unfollow' 'follow' user.username %}" class="rounded-md border-black border-2 p-1">Suivre</a>
-        {% endif %}
-      </p>
-    {% endfor %}
+    
+      {% if users %}
+        {% for user in users %}
+          <p class="mb-2">
+            {{ user.username }} {% if user.username in followings %}
+              <a href="{% url 'follow_unfollow' 'unfollow' user.username %}" class="rounded-md border-black border-2 p-1">Se désabonner</a>
+            {% else %}
+              <a href="{% url 'follow_unfollow' 'follow' user.username %}" class="rounded-md border-black border-2 p-1">Suivre</a>
+            {% endif %}
+          </p>
+        {% endfor %}
+      {% else %}
+        <p class="text-red-500">Aucun utilisateur trouvé.</p>
+      {% endif %}
+    </div>
     </div>
   </div>
 
