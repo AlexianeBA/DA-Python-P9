@@ -13,8 +13,8 @@ class Ticket(models.Model):
     uploader = models.ForeignKey(
         User, on_delete=models.CASCADE, related_name="uploaded_tickets", null=True
     )
-    title = models.CharField(max_length=200, default="")
-    content = models.TextField(default="")
+    title = models.CharField(max_length=128, default="")
+    content = models.TextField(max_length=2048, default="")
     image = models.ImageField(upload_to="images/", null=True, blank=True)
     created_at = models.DateTimeField(default=timezone.now)
 
