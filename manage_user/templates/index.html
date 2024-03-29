@@ -1,44 +1,52 @@
-{% extends "header.html" %}
-{% block title %}Connection{% endblock %}
-{% block content %}
-    <div class="flex flex-row pt-6 justify-between m-9 mx-96">
-      <p class="flex flex-col">
-        Inscrivez-vous maintenant
-        <a href="{% url 'signup' %}" class="rounded border-black border-2 w-20 mt-4 flex justify-center">S'inscrire</a>
-      </p>
-      <form class="flex flex-col" method="post" action="{% url 'login' %}">
-        {% csrf_token %}
-        <h1>Connectez-vous</h1>
-        <input
-          class="w-38 border-2 border-black rounded"
-          type="text"
-          id="username"
-          name="username"
-          placeholder="Nom d'utilisateur"
-        />
-        
-        <input
-          class="mt-4 w-38 border-2 border-black rounded"
-          type="password"
-          id="password"
-          name="password"
-          placeholder="Mot de passe"
-        />
-        <p class="text-xs">
-          Mot de passe oublié?
-          <a href="{% url 'change_password' %}">Cliquez ici</a>
-        </p>
-        <button
-          class="rounded border-black border-2 w-28 mt-4 ml-20"
-          type="submit"
-        >
-          Se connecter
-        </button>
-      </form>
+{% extends "header.html" %} {% block title %}Connection{% endblock %}
+<div>
+  {% block content %}
+  <div class="flex flex-row pt-6 justify-between m-9 mx-96">
+    <div class="flex flex-col space-y-4">
+      <h2 class="text-xl font-bold">Inscrivez-vous maintenant</h2>
+      <a
+        href="{% url 'signup' %}"
+        class="rounded border-black border-2 w-20 mt-4 flex justify-center bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+        >S'inscrire</a
+      >
     </div>
-    {% if error_message %}
-    <p>{{ error_message }}</p>
-    {% endif %}
-    {% endblock %}
-  </body>
-</html>
+    <form
+      class="flex flex-col space-y-4"
+      method="post"
+      action="{% url 'login' %}"
+    >
+      {% csrf_token %}
+      <h1 class="text-xl font-bold">Connectez-vous</h1>
+      <input
+        class="w-38 border-2 border-black rounded py-2 px-4"
+        type="text"
+        id="username"
+        name="username"
+        placeholder="Nom d'utilisateur"
+      />
+
+      <input
+        class="mt-4 w-38 border-2 border-black rounded py-2 px-4"
+        type="password"
+        id="password"
+        name="password"
+        placeholder="Mot de passe"
+      />
+      <p class="text-xs">
+        Mot de passe oublié?
+        <a
+          href="{% url 'change_password' %}"
+          class="text-blue-500 hover:text-blue-700"
+          >Cliquez ici</a
+        >
+      </p>
+      <button
+        class="rounded border-black border-2 w-26 mt-4 flex justify-center bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+        type="submit"
+      >
+        Se connecter
+      </button>
+    </form>
+  </div>
+  {% endblock %}
+</div>

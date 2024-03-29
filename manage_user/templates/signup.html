@@ -1,28 +1,27 @@
 {% extends "header.html" %}
 {% block title %}Inscription{% endblock %}
-    {% block content %}
-    <h1 class="flex justify-center text-xl">Inscrivez-vous</h1>
-    <form method="post" class="flex flex-col mt-6 ">
-      {% csrf_token %}
-      <table class="flex justify-center">
-        {% for field in form %}
-        <tr>
-          <td>{{ field.label_tag }}</td>
-          <td>{{ field }}</td>
-        </tr>
-        {% for error in field.errors %}
-        <tr>
-          <td></td>
-          <td class="alert alert-danger">{{ error }}</td>
-        </tr>
-        {% endfor %} {% endfor %}
-      </table>
-      <div class="flex flex-row justify-center">
-        <a href="{% url 'LITRevu' %}" class="rounded border-black border-2 w-20 mt-4 flex justify-center mr-4">Retour</a>
-        <button class="rounded border-black border-2 w-20 mt-4 flex justify-center " type="submit" >S'inscrire</button>
-        
-      </div>
-    </form>
-    {% endblock %}
-  </body>
+{% block content %}
+<h1 class="flex justify-center text-xl mb-4">Inscrivez-vous</h1>
+<form method="post" class="flex flex-col mt-6 ">
+  {% csrf_token %}
+  <table class="table-auto mx-auto">
+    {% for field in form %}
+    <tr class="mb-2">
+      <td class="px-4">{{ field.label_tag }}</td>
+      <td class="px-4">{{ field }}</td>
+    </tr>
+    {% for error in field.errors %}
+    <tr>
+      <td></td>
+      <td class="alert alert-danger">{{ error }}</td>
+    </tr>
+    {% endfor %} {% endfor %}
+  </table>
+  <div class="flex flex-row justify-center mt-4">
+    <a href="{% url 'LITRevu' %}" class="rounded border-black border-2 w-20 mt-4 flex justify-center mr-4 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Retour</a>
+    <button class="rounded border-black border-2 w-20 mt-4 flex justify-center bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded" type="submit" >S'inscrire</button>
+  </div>
+</form>
+{% endblock %}
+</body>
 </html>
