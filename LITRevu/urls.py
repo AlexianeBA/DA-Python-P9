@@ -14,6 +14,7 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
+
 from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib import admin
@@ -28,6 +29,7 @@ from manage_user.views import (
     following,
     followers,
     signout,
+    delete_account,
 )
 from manage_review.views import (
     creation_ticket,
@@ -66,6 +68,7 @@ urlpatterns = [
     ),
     path("following/", following, name="following"),
     path("followers/", followers, name="followers"),
+    path("update_profile/", delete_account, name="update_profile"),
 ]
 
 if settings.DEBUG:

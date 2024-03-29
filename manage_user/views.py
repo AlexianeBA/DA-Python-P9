@@ -121,3 +121,17 @@ def following(request):
 def followers(request):
     followers = UserFollows.objects.filter(followed_user=request.user)
     return render(request, "followers.html", {"followers": followers})
+
+
+def user_list(request):
+    users = User.objects.all()
+    return render(request, "follow.html", {"users": users})
+
+
+@login_required
+def delete_account(request):
+    if request.method == "POST":
+        request.user.delete()
+        messages.success(request, "Votre compte a été supprimé avec succès !")
+        return redirect("LITRevu")
+    return render(request, "update_profile.html")

@@ -1,16 +1,18 @@
 {% extends "header_connection.html" %}
 {% block title %}Modifier un ticket{% endblock %}
     
-      {% block content %}
+{% block content %}
+<div class="flex flex-col items-center justify-center min-h-screen bg-gray-100 py-6 sm:px-6 lg:px-8">
+  <h2 class="mb-6 text-2xl font-bold text-center">Modifier le ticket</h2>
+  <div class="max-w-md w-full space-y-8">
+    <form method="post" enctype="multipart/form-data" class="mt-8 space-y-6">
+      {% csrf_token %} {{ edit_form.as_p }}
       <div>
-      <h2 class="flex justify-center text-xl">Modifier le ticket</h2>
-      <form method="post" class="ml-96 mt-20">
-        {{ edit_form.as_p }} {% csrf_token %}
-        <button type="submit" class="mt-4 w-38 border-2 border-black rounded">Sauvegarder</button>
-      </form>
-      
-      
-    </div>
-    {% endblock content %}
-  </body>
+        <button type="submit" class="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700">Sauvegarder</button>
+      </div>
+    </form>
+  </div>
+</div>
+{% endblock content %}
+</body>
 </html>
