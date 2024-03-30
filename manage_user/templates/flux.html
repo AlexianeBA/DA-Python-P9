@@ -17,7 +17,6 @@
             <p>{{ ticket.user.username }} a ajouté un ticket au nom de "{{ ticket.title }}" le {{ ticket.formatted_created_at }}</p>
             <p>Commentaire: {{ ticket.content }}</p>
           {% endif %}
-    
           {% if ticket.image %}
             <img src="{{ ticket.image.url }}" alt="{{ ticket.title }} image" class="h-60 mb-3"/>
           {% endif %}
@@ -56,12 +55,11 @@
       {% if review.user == user %}
         <div class="border border-green-500 p-3 rounded mt-3">
           <p>Vous avez publié une nouvelle critique :</p>
-          <p>Critique : {{ review.body }} Note: {{ review.rating }}</p>
-          
-          {% if review.ticket %}
-          
-            <p>Ticket associé - Titre: {{ review.ticket.title }}, Description: {{ review.ticket.content }} Image: <img src="{{ review.ticket.image.url }}" alt="{{ ticket.title }} image" class="h-60 mb-3"/></p>
-          {% endif %}
+          <p>{{ review.headline }}</p>
+          <p>Critique : {{ review.commentary }} Note: {{ review.rating }}</p>
+          <p>Description: {{ review.content }}</p>
+          {% comment %} <img src="{{ review.image.url }}" alt="{{ review.image.url }} image" class="h-60 mb-3"/> {% endcomment %}
+
           <a href="{% url 'edit_review' review.id %}" class="text-blue-500 font-bold">Modifier</a>
           <a href="{% url 'delete_review' review.id %}" class="text-red-500 ml-2 font-bold">Supprimer</a>
         </div>
@@ -77,7 +75,7 @@
         </div>
       {% endfor %}
     {% empty %}
-      <p>Aucune critique disponible.</p>
+
     {% endfor %}
     
     </section>

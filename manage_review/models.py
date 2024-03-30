@@ -26,16 +26,19 @@ class Ticket(models.Model):
 
 
 class Review(models.Model):
+    title = models.CharField(max_length=128, default="")
     ticket = models.ForeignKey(to=Ticket, on_delete=models.CASCADE, null=True)
     rating = models.PositiveSmallIntegerField(
-        # validates that rating must be between 0 and 5
+        
         validators=[MinValueValidator(0), MaxValueValidator(5)]
     )
     headline = models.CharField(max_length=128)
-    body = models.CharField(max_length=8192, blank=True)
+    commentary = models.CharField(max_length=8192, blank=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     time_created = models.DateTimeField(default=timezone.now)
-    image = models.ImageField(upload_to="images/", null=True, blank=True)
+    image = models.ImageField(upload_to="images/", default="")
+    content = models.TextField(max_length=2048, default="")
+    title = models.CharField(max_length=128, default="")
 
     def formatted_created_at(self):
         return self.time_created.strftime("%d-%m-%Y à %H:%M:%S")

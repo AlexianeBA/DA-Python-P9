@@ -69,7 +69,7 @@ urlpatterns = [
     path("following/", following, name="following"),
     path("followers/", followers, name="followers"),
     path("update_profile/", delete_account, name="update_profile"),
-]
+]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
-if settings.DEBUG:
-    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+# if settings.DEBUG:
+#     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

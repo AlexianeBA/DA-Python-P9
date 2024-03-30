@@ -3,7 +3,7 @@ from .forms import (
     TicketForm,
     DeleteTicketForm,
     ReviewForm,
-    NewReviewForm,
+    EditTicketForm,
     DeleteReviewForm,
 )
 from .models import Ticket, Review
@@ -54,13 +54,16 @@ def flux(request):
     reviews = Review.objects.filter(
         user__in=[request.user] + list(following_users)
     ).order_by("-time_created")
-
+    for t in tickets:
+        print(f"{t.image} pour {t.title}")
+    for r in reviews:
+        print(f"{r.image} pour {r.title}")
     return render(request, "flux.html", {"tickets": tickets, "reviews": reviews})
 
 
 def edit_ticket(request, ticket_id):
     ticket = get_object_or_404(Ticket, id=ticket_id)
-    edit_form = TicketForm(instance=ticket)
+    edit_form = EditTicketForm(instance=ticket)
     delete_form = DeleteTicketForm()
     if request.method == "POST":
         edit_form = TicketForm(request.POST, instance=ticket)
@@ -130,7 +133,7 @@ def create_new_review(request):
     context = {}
 
     if request.method == "POST":
-        form = NewReviewForm(request.POST, request.FILES)
+        form = ReviewForm(request.POST, request.FILES)
         if form.is_valid():
             review_instance = form.save(commit=False)
             user = request.user
@@ -139,7 +142,7 @@ def create_new_review(request):
             context["username"] = user.username
             return redirect("flux")
     else:
-        form = NewReviewForm()
+        form = ReviewForm()
 
     context["form"] = form
     return render(request, "create_new_review.html", context)
