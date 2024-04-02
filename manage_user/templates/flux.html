@@ -12,14 +12,14 @@
         <div class="mb-3 border border-gray-300 p-3 rounded flex items-center flex-col justify-center">
           {% if ticket.user == user %}
             <p>Vous avez publié le ticket "{{ ticket.title }}" le {{ ticket.formatted_created_at }}</p>
-            <p>Commentaire: {{ ticket.content }}
+            <p>Commentaire: {{ ticket.content }}</p>
           
           {% else %}
             <p>{{ ticket.user.username }} a ajouté un ticket au nom de "{{ ticket.title }}" le {{ ticket.formatted_created_at }}</p>
             <p>Commentaire: {{ ticket.content }}</p>
           {% endif %}
           {% if ticket.image %}
-            <img src="{{ ticket.image.url }}" alt="{{ ticket.title }} image" class="h-60 mb-3"/>
+            <img src="{{ ticket.image.url }}" alt="{{ ticket.title }} image" class="h-60 mb-3 flex items-center"/>
           {% endif %}
           {% if ticket.user == user %}
             <div class="mb-3">
@@ -31,14 +31,14 @@
     
           {% for review in reviews %}
             {% if review.ticket == ticket %}
-              <div class="border border-blue-500 p-3 mt-3 rounded">
+              <div class="border border-blue-500 p-3 mt-3 rounded flex items-center flex-col">
                 {% if review.user == user %}
                   <p>Vous avez publié une critique pour le ticket "{{ review.ticket.title }}" le {{ review.formatted_created_at}}:</p>
                 {% else %}
                   <p>Nouvelle critique pour le ticket "{{ review.ticket.title }}" ajoutée par {{ review.user.username }}, le {{ review.formatted_created_at}}:</p>
                 {% endif %}
                 
-                <p>Critique : {{ review.body }}, Note: {{ review.rating }}</p>
+                <p>Critique : {{ review.content }}, Note: {{ review.rating }}</p>
     
                 {% if review.user == user %}
                   <a href="{% url 'edit_review' review.id %}" class="text-blue-500 font-bold">Modifier</a>
@@ -53,13 +53,15 @@
       {% endfor %}
     
       {% for review in reviews %}
-      {% if review.user == user %}
+      {% if review.user == user and review.ticket is None%}
         <div class="border border-green-500 p-3 rounded mt-3 flex items-center flex-col">
           <p>Vous avez publié une nouvelle critique :</p>
           <p>{{ review.headline }}</p>
           <p>Critique : {{ review.commentary }} Note: {{ review.rating }}</p>
           <p>Description: {{ review.content }}</p>
+          {% if review.image %}
           <img src="{{ review.image.url }}" alt="{{ review.image.url }} image" class="h-60 mb-3"/> 
+          {% endif %}
           <div class="flex row">
             <a href="{% url 'edit_review' review.id %}" class="text-blue-500 font-bold">Modifier</a>
             <a href="{% url 'delete_review' review.id %}" class="text-red-500 ml-2 font-bold">Supprimer</a>
