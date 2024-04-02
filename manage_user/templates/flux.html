@@ -2,13 +2,14 @@
 {% extends "header_connection.html" %}
 
     {% block content %}
+  <div class="flex items-center flex-col">
     <div class="flex justify-center space-x-8 mt-2">
       <a href="{% url 'creation_ticket' %}" class="rounded-md border-black border-2 p-1 ">Demander une critique</a>
       <a href="{% url 'create_new_review' %}" class="rounded-md border-black border-2 p-1">Créer une critique</a>
     </div>
     <section class="p-3 mb-3">
       {% for ticket in tickets %}
-        <div class="mb-3 border border-gray-300 p-3 rounded">
+        <div class="mb-3 border border-gray-300 p-3 rounded flex items-center flex-col justify-center">
           {% if ticket.user == user %}
             <p>Vous avez publié le ticket "{{ ticket.title }}" le {{ ticket.formatted_created_at }}</p>
             <p>Commentaire: {{ ticket.content }}
@@ -53,15 +54,16 @@
     
       {% for review in reviews %}
       {% if review.user == user %}
-        <div class="border border-green-500 p-3 rounded mt-3">
+        <div class="border border-green-500 p-3 rounded mt-3 flex items-center flex-col">
           <p>Vous avez publié une nouvelle critique :</p>
           <p>{{ review.headline }}</p>
           <p>Critique : {{ review.commentary }} Note: {{ review.rating }}</p>
           <p>Description: {{ review.content }}</p>
-          {% comment %} <img src="{{ review.image.url }}" alt="{{ review.image.url }} image" class="h-60 mb-3"/> {% endcomment %}
-
-          <a href="{% url 'edit_review' review.id %}" class="text-blue-500 font-bold">Modifier</a>
-          <a href="{% url 'delete_review' review.id %}" class="text-red-500 ml-2 font-bold">Supprimer</a>
+          <img src="{{ review.image.url }}" alt="{{ review.image.url }} image" class="h-60 mb-3"/> 
+          <div class="flex row">
+            <a href="{% url 'edit_review' review.id %}" class="text-blue-500 font-bold">Modifier</a>
+            <a href="{% url 'delete_review' review.id %}" class="text-red-500 ml-2 font-bold">Supprimer</a>
+          </div>
         </div>
       {% endif %}
     {% endfor %}
@@ -80,5 +82,7 @@
     
     </section>
     {% endblock %}
+
+  </div>
   </body>
 </html>

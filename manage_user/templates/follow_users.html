@@ -2,24 +2,25 @@
 {% block title %}Abonnements{% endblock %}
 {% block content %}
   <div class="border rounded p-4 mb-4">
-    <h1 class="flex justify-center text-xl">Suivre d'autres utilisateurs</h1>
+    <h1 class="flex justify-center text-2xl font-bold mb-4">Suivre d'autres utilisateurs</h1>
 
-    <form method="post" action="{% url 'follow_users' %}" class="flex justify-center mt-5">
+    <form method="post" action="{% url 'follow_users' %}" class="flex justify-center ">
       {% csrf_token %}
-      <label for="search_query">Rechercher un utilisateur:</label>
+      <label for="search_query" class="p-2 mt-2">Rechercher un utilisateur :</label>
       <input
         type="text"
         name="search_query"
         id="search_query"
         value="{{ query }}"
-        class="rounded-md border-black border-2 p-1"
+        class="rounded-md border-black border-2 p-2 m-2"
       />
-      <button type="submit" class="rounded-md border-black border-2 p-1">Envoyer</button>
+      <button type="submit" class="rounded-md border-black border-2 p-2">Envoyer</button>
     </form>
 
     <div class="ml-16">
-      <h2 class="mb-2">Résultats de recherche: </h2>
-    
+      {% if query %}
+      <h2 class="mb-2">Résultat de recherche: </h2>
+      {% endif %}
       {% if users %}
         {% for user in users %}
           <p class="mb-2">
@@ -30,7 +31,7 @@
             {% endif %}
           </p>
         {% endfor %}
-      {% else %}
+      {% elif query %}
         <p class="text-red-500">Aucun utilisateur trouvé.</p>
       {% endif %}
     </div>
@@ -38,7 +39,7 @@
   </div>
 
   <div class="border rounded p-4 mb-4">
-    <h2 class="flex justify-center text-xl">Abonnements</h2>
+    <h2 class="flex justify-center text-2xl font-bold mb-4">Abonnements</h2>
     {% for following_username in followings %}
       <p class="mb-5 ml-16">{{ following_username }}
         <a href="{% url 'follow_unfollow' 'unfollow' following_username %}" class="rounded-md border-black border-2 p-1 ">Se désabonner</a>
@@ -47,7 +48,7 @@
   </div>
 
   <div class="border rounded p-4 mb-4">
-    <h2 class="flex justify-center text-xl">Abonnés</h2>
+    <h2 class="flex justify-center text-2xl font-bold mb-4">Abonnés</h2>
     {% for follower_username in followers %}
       <p class="mb-5 ml-16">{{ follower_username }}
         {% if follower_username in followings %}

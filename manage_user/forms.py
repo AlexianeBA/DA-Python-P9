@@ -2,7 +2,7 @@ from django import forms
 
 from django.contrib.auth.forms import (
     UserCreationForm,
-    PasswordChangeForm,
+    SetPasswordForm,
     AuthenticationForm,
 )
 from django.contrib.auth.models import User
@@ -27,14 +27,23 @@ class SignInForm(AuthenticationForm):
         fields = ("username", "password")
 
 
-class CustomPasswordChangeForm(PasswordChangeForm):
+class UsernameForm(forms.Form):
     username = forms.CharField()
 
     def clean_username(self):
         username = self.cleaned_data["username"]
         if not username:
             raise forms.ValidationError("Le nom d'utilisateur est requis.")
+        if not User.objects.filter(username=username).exists():
+            raise forms.ValidationError("Cet utilisateur n'existe pas.")
         return username
+
+
+class CustomPasswordChangeForm(SetPasswordForm):
+    def __init__(self, user, *args, **kwargs):
+        super().__init__(user, *args, **kwargs)
+        if "old_password" in self.fields:
+            self.fields.pop("old_password")
 
 
 class FollowForm(forms.ModelForm):

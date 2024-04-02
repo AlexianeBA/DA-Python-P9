@@ -1,12 +1,12 @@
 {% extends "header_connection.html" %}
-<h1>Suivre d'autres utilisateurs</h1>
+<h1 class="text-2xl font-bold mb-4">Suivre d'autres utilisateurs</h1>
 <input type="search" />
 <button>Envoyer</button>
 
-<h1>Abonnements</h1>
+<h1 class="text-2xl font-bold mb-4">Abonnements</h1>
 <h1>Abonnés</h1>
 {% block content %}
-<h2>Suivre un utilisateur</h2>
+<h2 >Suivre un utilisateur</h2>
 <form method="post" action="{% url 'follow_user' %}">
   {% csrf_token %}
   {{ form.as_p }}

@@ -4,7 +4,7 @@
     {% load static %} {% if user.is_authenticated %}
     <h1 class="flex justify-center text-2xl font-bold mb-4">Vos posts</h1>
     {% for ticket in tickets %}
-    <div class="mb-8 p-4 bg-pink-100  rounded-md ml-60 mr-60 p-6">
+    <div class="mb-8 p-4 bg-gray-100  rounded-md ml-60 mr-60 p-6 shadow flex items-center flex-col">
       <h2 class="text-xl font-semibold mb-2">{{ ticket.title }}</h2>
       <p class="text-lg mb-4">{{ ticket.content }}</p>
 

@@ -9,7 +9,13 @@ from django.contrib.auth.decorators import login_required
 from .models import User, UserFollows
 from django.contrib.auth import authenticate, login
 
-from .forms import SignUpForm, SignInForm, CustomPasswordChangeForm, FollowForm
+from .forms import (
+    SignUpForm,
+    SignInForm,
+    CustomPasswordChangeForm,
+    FollowForm,
+    UsernameForm,
+)
 
 
 # Create your views here.
@@ -20,8 +26,8 @@ def home_view(request):
 
 
 def login_page(request):
+    form = SignInForm(request.POST or None)
     if request.method == "POST":
-        form = SignInForm(request.POST)
         # if form.is_valid():
         username = request.POST["username"]
         password = request.POST["password"]
@@ -54,20 +60,28 @@ def signout(request):
     return redirect("LITRevu")
 
 
-def change_password(request):
+def change_password_step1(request):
+    form = UsernameForm(request.POST or None)
     if request.method == "POST":
-        form = CustomPasswordChangeForm(user=request.user, data=request.POST)
         if form.is_valid():
-            user = form.save()
-            print(form.cleaned_data)
-            update_session_auth_hash(request, user)
-            messages.success(request, "Votre mot de passe a été modifié avec succès!")
-            return redirect("LITRevu")
-        else:
-            messages.error(request, "Veuillez corriger les erreurs ci-dessous.")
-    else:
-        form = CustomPasswordChangeForm(user=request.user)
-    return render(request, "change_password.html", {"form": form})
+            request.session["username_to_change_password"] = form.cleaned_data[
+                "username"
+            ]
+            return redirect("change_password_step2")
+    return render(request, "change_password_step1.html", {"form": form})
+
+
+def change_password_step2(request):
+    username = request.session.get("username_to_change_password")
+    if not username:
+        return redirect("change_password_step1")
+    user = User.objects.get(username=username)
+    form = CustomPasswordChangeForm(user, request.POST or None)
+    if request.method == "POST":
+        if form.is_valid():
+            form.save()
+            return redirect("login")
+    return render(request, "change_password_step2.html", {"form": form})
 
 
 @login_required

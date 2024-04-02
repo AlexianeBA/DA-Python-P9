@@ -29,14 +29,13 @@ class Review(models.Model):
     title = models.CharField(max_length=128, default="")
     ticket = models.ForeignKey(to=Ticket, on_delete=models.CASCADE, null=True)
     rating = models.PositiveSmallIntegerField(
-        
         validators=[MinValueValidator(0), MaxValueValidator(5)]
     )
     headline = models.CharField(max_length=128)
     commentary = models.CharField(max_length=8192, blank=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     time_created = models.DateTimeField(default=timezone.now)
-    image = models.ImageField(upload_to="images/", default="")
+    image = models.ImageField(upload_to="images/", null=True, blank=True)
     content = models.TextField(max_length=2048, default="")
     title = models.CharField(max_length=128, default="")
 

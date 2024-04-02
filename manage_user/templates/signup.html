@@ -1,14 +1,14 @@
 {% extends "header.html" %}
 {% block title %}Inscription{% endblock %}
 {% block content %}
-<h1 class="flex justify-center text-xl mb-4">Inscrivez-vous</h1>
-<form method="post" class="flex flex-col mt-6 ">
+<h1 class="flex justify-center text-2xl mb-4 p-6 rounded-lg"><u>Inscrivez-vous</u></h1>
+<form method="post" class="flex flex-col mt-6" autocomplete="off" >
   {% csrf_token %}
   <table class="table-auto mx-auto">
     {% for field in form %}
-    <tr class="mb-2">
-      <td class="px-4">{{ field.label_tag }}</td>
-      <td class="px-4">{{ field }}</td>
+    <tr class="mb-2 ">
+      <td class="px-4 ">{{ field.label_tag }}</td>
+      <td class="px-4 "><input class="border-2 border-gray-300 bg-white h-10 px-5 pr-16 rounded-lg text-sm focus:outline-none" type="{{ field.field.widget.input_type }}" name="{{ field.html_name }}" id="{{ field.auto_id }}" autocomplete="off"></td>
     </tr>
     {% for error in field.errors %}
     <tr>

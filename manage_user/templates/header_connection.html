@@ -8,42 +8,42 @@
       href="https://unpkg.com/tailwindcss@2.2.19/dist/tailwind.min.css"
     />
   </head>
-  <body class="m-6 bg-pink-50">
-    <nav class="bg-red-100 p-3 rounded m-0 shadow-lg">
+  <body class="m-6 bg-gray-100">
+    <nav class="p-3 rounded m-0 shadow bg-blue-200">
       <div class="flex flex-row justify-between items-center px-10">
         {% load static %}
-        <h1 class="text-2xl font-bold text-red-500">LITRevu</h1>
+        <h1 class="text-2xl font-bold text-gray-500">LITRevu</h1>
         <ul class="flex flex-row space-x-14">
           <li>
-            <a href="{% url 'flux' %}" class="text-red-500 hover:text-red-700"
+            <a href="{% url 'flux' %}" class="text-gray-500 hover:text-gray-700"
               >Flux</a
             >
           </li>
           <li>
             <a
               href="{% url 'ticket_list' %}"
-              class="text-red-500 hover:text-red-700"
+              class="text-gray-500 hover:text-gray-700"
               >Posts</a
             >
           </li>
           <li>
             <a
               href="{% url 'follow_users' %}"
-              class="text-red-500 hover:text-red-700"
+              class="text-gray-500 hover:text-gray-700"
               >Abonnements</a
             >
           </li>
           <li>
             <a
               href="{% url 'update_profile' %}"
-              class="text-red-500 hover:text-red-700"
+              class="text-gray-500 hover:text-gray-700"
               >Mon profil</a
             >
           </li>
           <li>
             <a
               href="{% url 'signout' %}"
-              class="text-red-500 hover:text-red-700"
+              class="text-gray-500 hover:text-gray-700"
               >Se déconnecter</a
             >
           </li>

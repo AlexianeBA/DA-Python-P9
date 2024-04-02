@@ -23,7 +23,8 @@ from manage_user.views import (
     home_view,
     login_page,
     signup_page,
-    change_password,
+    change_password_step1,
+    change_password_step2,
     follow_users,
     follow_unfollow,
     following,
@@ -50,7 +51,6 @@ urlpatterns = [
     path("login/", login_page, name="login"),
     path("signup/", signup_page, name="signup"),
     path("signout/", signout, name="signout"),
-    path("change_password", change_password, name="change_password"),
     path("creation_ticket/", creation_ticket, name="creation_ticket"),
     path("ticket_list/", ticket_list, name="ticket_list"),
     path("edit_ticket/<int:ticket_id>/", edit_ticket, name="edit_ticket"),
@@ -69,7 +69,9 @@ urlpatterns = [
     path("following/", following, name="following"),
     path("followers/", followers, name="followers"),
     path("update_profile/", delete_account, name="update_profile"),
-]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+    path("change_password_step1/", change_password_step1, name="change_password_step1"),
+    path("change_password_step2/", change_password_step2, name="change_password_step2"),
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 # if settings.DEBUG:
 #     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
